@@ -1,6 +1,6 @@
 package hr.mev.zastita.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,13 +21,13 @@ public class Ispit {
 	private String naziv_ispit;
 	
 	@Column
-	private LocalDateTime datum_ispita;
+	private Date datum_ispita;
 	
 	public Ispit() {
 		super();
 	}
 
-	public Ispit(long id_ispit, String naziv_ispit, LocalDateTime datum_ispita) {
+	public Ispit(long id_ispit, String naziv_ispit, Date datum_ispita) {
 		super();
 		this.id_ispit = id_ispit;
 		this.naziv_ispit = naziv_ispit;
@@ -50,11 +50,11 @@ public class Ispit {
 		this.naziv_ispit = naziv_ispit;
 	}
 
-	public LocalDateTime getDatum_ispita() {
+	public Date getDatum_ispita() {
 		return datum_ispita;
 	}
 
-	public void setDatum_ispita(LocalDateTime datum_ispita) {
+	public void setDatum_ispita(Date datum_ispita) {
 		this.datum_ispita = datum_ispita;
 	}
 }

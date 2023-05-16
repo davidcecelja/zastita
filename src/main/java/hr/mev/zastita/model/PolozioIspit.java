@@ -1,12 +1,14 @@
 package hr.mev.zastita.model;
 
-import java.time.LocalDateTime;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,23 +20,25 @@ public class PolozioIspit {
 	private long id_polozen;
 	
 	@Column
-	private Student student;
+	@ManyToMany
+	private long id_student;
 	
 	@Column
-	private Ispit ispit;
+	@OneToMany
+	private long id_ispit;
 	
 	@Column
-	private LocalDateTime datumPolaganja;
+	private Date datumPolaganja;
 	
 	public PolozioIspit() {
 		super();
 	}
 
-	public PolozioIspit(long id_polozen, Student student, Ispit ispit, LocalDateTime datumPolaganja) {
+	public PolozioIspit(long id_polozen, long id_student, long id_ispit, Date datumPolaganja) {
 		super();
 		this.id_polozen = id_polozen;
-		this.student = student;
-		this.ispit = ispit;
+		this.id_student = id_student;
+		this.id_ispit = id_ispit;
 		this.datumPolaganja = datumPolaganja;
 	}
 
@@ -46,27 +50,27 @@ public class PolozioIspit {
 		this.id_polozen = id_polozen;
 	}
 
-	public Student getStudent() {
-		return student;
+	public long getId_student() {
+		return id_student;
 	}
 
-	public void setStudent(Student student) {
-		this.student = student;
+	public void setId_student(long id_student) {
+		this.id_student = id_student;
 	}
 
-	public Ispit getIspit() {
-		return ispit;
+	public long getId_ispit() {
+		return id_ispit;
 	}
 
-	public void setIspit(Ispit ispit) {
-		this.ispit = ispit;
+	public void setId_ispit(long id_ispit) {
+		this.id_ispit = id_ispit;
 	}
 
-	public LocalDateTime getDatumPolaganja() {
+	public Date getDatumPolaganja() {
 		return datumPolaganja;
 	}
 
-	public void setDatumPolaganja(LocalDateTime datumPolaganja) {
+	public void setDatumPolaganja(Date datumPolaganja) {
 		this.datumPolaganja = datumPolaganja;
 	}
 }

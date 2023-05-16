@@ -1,6 +1,6 @@
 package hr.mev.zastita.model;
 
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -21,7 +21,7 @@ public class Predavanje {
 	private String naziv_predavanja;
 	
 	@Column
-	private LocalDate datum_predavanja;
+	private Date datum_predavanja;
 	
 	@Column
 	private int broj_studenata;
@@ -30,7 +30,7 @@ public class Predavanje {
 		super();
 	}
 
-	public Predavanje(long id_predavanje, String naziv_predavanja, LocalDate datum_predavanja, int broj_studenata) {
+	public Predavanje(long id_predavanje, String naziv_predavanja, Date datum_predavanja, int broj_studenata) {
 		super();
 		this.id_predavanje = id_predavanje;
 		this.naziv_predavanja = naziv_predavanja;
@@ -54,11 +54,11 @@ public class Predavanje {
 		this.naziv_predavanja = naziv_predavanja;
 	}
 
-	public LocalDate getDatum_predavanja() {
+	public Date getDatum_predavanja() {
 		return datum_predavanja;
 	}
 
-	public void setDatum_predavanja(LocalDate datum_predavanja) {
+	public void setDatum_predavanja(Date datum_predavanja) {
 		this.datum_predavanja = datum_predavanja;
 	}
 

@@ -27,20 +27,28 @@ public class Student {
 	@Column
 	private String lozinka_student;
 	
+	@Column
+	private String studij;
+	
+	@Column
+	private int godina;
+	
 	public Student() {
 		super();
 	}
 	
 	public Student(long id_student, String ime_student, String prezime_student, String email_student,
-			String lozinka_student) {
+			String lozinka_student, String studij, int godina) {
 		super();
 		this.id_student = id_student;
 		this.ime_student = ime_student;
 		this.prezime_student = prezime_student;
 		this.email_student = email_student;
 		this.lozinka_student = lozinka_student;
+		this.studij = studij;
+		this.godina = godina;
 	}
-	
+
 	public long getId_student() {
 		return id_student;
 	}
@@ -76,7 +84,24 @@ public class Student {
 	public String getLozinka_student() {
 		return lozinka_student;
 	}
+	
 	public void setLozinka_student(String lozinka_student) {
 		this.lozinka_student = lozinka_student;
+	}
+
+	public String getStudij() {
+		return studij;
+	}
+
+	public void setStudij(String studij) {
+		this.studij = studij;
+	}
+
+	public int getGodina() {
+		return godina;
+	}
+
+	public void setGodina(int godina) {
+		this.godina = godina;
 	}
 }
