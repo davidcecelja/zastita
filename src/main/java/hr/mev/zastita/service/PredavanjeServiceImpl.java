@@ -38,13 +38,25 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 
 	@Override
 	public Predavanje getPredavanje(long id_predavanje) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		if(id_predavanje == 0) 
+			return new Predavanje();
+		
+		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id_predavanje);
+		if(productDB.isPresent()) {
+			return productDB.get();
+		} else {
+			return new Predavanje();
+		}		
 	}
 
 	@Override
 	public void deletePredavanje(long id_predavanje) {
-		// TODO Auto-generated method stub
-		
+		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id_predavanje);
+		if(productDB.isPresent()) {
+			this.predavanjeRepository.delete(productDB.get());
+		} else {
+			throw new ResourceNotFoundException("Zapis nije pronađen.");
+		}
 	}
 }
