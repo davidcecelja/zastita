@@ -1,5 +1,14 @@
 package hr.mev.zastita.service;
 
-public interface NastavnikService {
+import hr.mev.zastita.model.Nastavnik;
 
+public interface NastavnikService {
+	
+	Nastavnik createNastavnik(Nastavnik nastavnik);
+
+	Nastavnik updateNastavnik(Nastavnik nastavnik);
+	
+	Nastavnik getNastavnik(long id_nastavnik);
+
+	void deleteNastavnik(long id_nastavnik);
 }
