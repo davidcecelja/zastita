@@ -1,5 +1,7 @@
 package hr.mev.zastita.model;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -33,12 +35,15 @@ public class Student {
 	@Column
 	private int godina;
 	
+	@Column
+	private List<Ispit> polozili;
+	
 	public Student() {
 		super();
 	}
 	
 	public Student(long id_student, String ime_student, String prezime_student, String email_student,
-			String lozinka_student, String studij, int godina) {
+			String lozinka_student, String studij, int godina, List<Ispit> polozili) {
 		super();
 		this.id_student = id_student;
 		this.ime_student = ime_student;
@@ -47,6 +52,7 @@ public class Student {
 		this.lozinka_student = lozinka_student;
 		this.studij = studij;
 		this.godina = godina;
+		this.polozili = polozili;
 	}
 
 	public long getId_student() {
@@ -103,5 +109,13 @@ public class Student {
 
 	public void setGodina(int godina) {
 		this.godina = godina;
+	}
+
+	public List<Ispit> getPolozili() {
+		return polozili;
+	}
+
+	public void setPolozili(List<Ispit> polozili) {
+		this.polozili = polozili;
 	}
 }

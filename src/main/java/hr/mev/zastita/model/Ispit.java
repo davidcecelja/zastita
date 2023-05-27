@@ -1,6 +1,7 @@
 package hr.mev.zastita.model;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -23,15 +24,19 @@ public class Ispit {
 	@Column
 	private Date datum_ispita;
 	
+	@Column
+	private List<Student> polozili;
+	
 	public Ispit() {
 		super();
 	}
 
-	public Ispit(long id_ispit, String naziv_ispit, Date datum_ispita) {
+	public Ispit(long id_ispit, String naziv_ispit, Date datum_ispita, List<Student> polozili) {
 		super();
 		this.id_ispit = id_ispit;
 		this.naziv_ispit = naziv_ispit;
 		this.datum_ispita = datum_ispita;
+		this.polozili = polozili;
 	}
 
 	public long getId_ispit() {
@@ -57,4 +62,14 @@ public class Ispit {
 	public void setDatum_ispita(Date datum_ispita) {
 		this.datum_ispita = datum_ispita;
 	}
+
+	public List<Student> getPolozili() {
+		return polozili;
+	}
+
+	public void setPolozili(List<Student> polozili) {
+		this.polozili = polozili;
+	}
+	
+	
 }
