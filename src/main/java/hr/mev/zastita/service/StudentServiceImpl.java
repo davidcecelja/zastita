@@ -1,8 +1,10 @@
 package hr.mev.zastita.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import hr.mev.zastita.exceptions.ResourceNotFoundException;
+import hr.mev.zastita.model.Ispit;
 import hr.mev.zastita.model.Student;
 import hr.mev.zastita.repository.StudentRepository;
 
@@ -16,7 +18,7 @@ public class StudentServiceImpl implements StudentService{
 	}
 
 	@Override
-	public Student updateStudent(Student student) throws ResourceNotFoundException{
+	public Student updateStudent(Student student, List<Ispit> polozili) throws ResourceNotFoundException{
 		
 		Optional<Student> productDB = this.studentRepository.findById(student.getId_student());
 		if(productDB.isPresent()) {
@@ -27,6 +29,7 @@ public class StudentServiceImpl implements StudentService{
 			studentUpdate.setEmail_student(student.getEmail_student());
 			studentUpdate.setStudij(student.getStudij());
 			studentUpdate.setLozinka_student(student.getLozinka_student());
+			studentUpdate.setPolozili(polozili);
 			studentRepository.save(studentUpdate);
 			return studentUpdate;
 		} else {

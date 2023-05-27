@@ -1,9 +1,11 @@
 package hr.mev.zastita.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import hr.mev.zastita.exceptions.ResourceNotFoundException;
 import hr.mev.zastita.model.Ispit;
+import hr.mev.zastita.model.Student;
 import hr.mev.zastita.repository.IspitRepository;
 
 public class IspitServiceImpl implements IspitService{
@@ -16,13 +18,14 @@ public class IspitServiceImpl implements IspitService{
 	}
 
 	@Override
-	public Ispit updateIspit(Ispit ispit) throws ResourceNotFoundException {
+	public Ispit updateIspit(Ispit ispit, List<Student> polozili) throws ResourceNotFoundException {
 	
 		Optional<Ispit> productDB = this.ispitRepository.findById(ispit.getId_ispit());
 		if(productDB.isPresent()) {
 			Ispit ispitUpdate = productDB.get();
 			ispitUpdate.setNaziv_ispit(ispit.getNaziv_ispit());
 			ispitUpdate.setDatum_ispita(ispit.getDatum_ispita());
+			ispitUpdate.setPolozili(polozili);
 			ispitRepository.save(ispitUpdate);
 			return ispitUpdate;
 		} else {
@@ -52,5 +55,4 @@ public class IspitServiceImpl implements IspitService{
 			throw new ResourceNotFoundException("Zapis nije pronađen!");
 		}
 	}
-
 }
