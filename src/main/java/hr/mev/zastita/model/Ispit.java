@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -18,22 +19,26 @@ public class Ispit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_ispit;
 	
+	@Column(name = "id_student")
+    private long id_student;
+	
 	@Column
 	private String naziv_ispit;
 	
 	@Column
 	private Date datum_ispita;
 	
-	@Column
+	@OneToMany(mappedBy = "student")
 	private List<Student> polozili;
 	
 	public Ispit() {
 		super();
 	}
 
-	public Ispit(long id_ispit, String naziv_ispit, Date datum_ispita, List<Student> polozili) {
+	public Ispit(long id_ispit, long id_student, String naziv_ispit, Date datum_ispita, List<Student> polozili) {
 		super();
 		this.id_ispit = id_ispit;
+		this.id_student = id_student;
 		this.naziv_ispit = naziv_ispit;
 		this.datum_ispita = datum_ispita;
 		this.polozili = polozili;
@@ -69,6 +74,14 @@ public class Ispit {
 
 	public void setPolozili(List<Student> polozili) {
 		this.polozili = polozili;
+	}
+
+	public long getStudentId() {
+		return id_student;
+	}
+
+	public void setStudentId(long id_student) {
+		this.id_student = id_student;
 	}
 	
 	

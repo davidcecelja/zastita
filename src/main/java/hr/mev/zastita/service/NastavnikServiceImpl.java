@@ -56,4 +56,9 @@ public class NastavnikServiceImpl implements NastavnikService{
 			throw new ResourceNotFoundException("Zapis nije pronađen : ");
 		}
 	}
+
+	@Override
+	public Iterable<Nastavnik> getAllNastavnici() {
+		return this.nastavnikRepository.findAll();
+	}
 }

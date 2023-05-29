@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Prikaz nastavnika</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Prikaz nastavnika</h1>
+    </header>
+    <nav>
+        <ul>
+            <li><a href="/">Početna</a></li>
+            <li><a href="/ispiti">Prikaz ispita</a></li>
+            <li><a href="/kontakt">Kontaktirajte nas</a></li>
+        </ul>
+    </nav>
+    <main>
+        <h2>Popis nastavnika</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="nastavnik : ${nastavnici}">
+                    <td th:text="${nastavnik.id_nastavnik}"></td>
+                    <td th:text="${nastavnik.ime_nastavnik}"></td>
+                    <td th:text="${nastavnik.prezime_nastavnik}"></td>
+                    <td th:text="${nastavnik.email_nastavnik}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </main>
+    <footer>
+        <p>&copy; 2023 Moja aplikacija. Sva prava pridržana.</p>
+    </footer>
+</body>
+</html>

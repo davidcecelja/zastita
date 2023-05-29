@@ -19,20 +19,19 @@ public class IspitServiceImpl implements IspitService{
 
 	@Override
 	public Ispit updateIspit(Ispit ispit, List<Student> polozili) throws ResourceNotFoundException {
-	
-		Optional<Ispit> productDB = this.ispitRepository.findById(ispit.getId_ispit());
-		if(productDB.isPresent()) {
-			Ispit ispitUpdate = productDB.get();
-			ispitUpdate.setNaziv_ispit(ispit.getNaziv_ispit());
-			ispitUpdate.setDatum_ispita(ispit.getDatum_ispita());
-			ispitUpdate.setPolozili(polozili);
-			ispitRepository.save(ispitUpdate);
-			return ispitUpdate;
-		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen : " + ispit.getId_ispit());
-		}		
+	    Optional<Ispit> ispitDB = this.ispitRepository.findById(ispit.getId_ispit());
+	    if (ispitDB.isPresent()) {
+	        Ispit ispitUpdate = ispitDB.get();
+	        ispitUpdate.setNaziv_ispit(ispit.getNaziv_ispit());
+	        ispitUpdate.setDatum_ispita(ispit.getDatum_ispita());
+	        ispitUpdate.setPolozili(ispit.getPolozili());
+	        ispitRepository.save(ispitUpdate);
+	        return ispitUpdate;
+	    } else {
+	        throw new ResourceNotFoundException("Zapis nije pronađen : " + ispit.getId_ispit());
+	    }
 	}
-
+	
 	@Override
 	public Ispit getIspit(long id_ispit) {
 		if(id_ispit == 0)

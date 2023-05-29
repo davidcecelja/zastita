@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -17,10 +19,12 @@ public class PolozioIspit {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id_polozen;
 	
-	@Column
+	@ManyToOne
+    @JoinColumn(name = "id_student", referencedColumnName= "id_ispit")
 	private Student student;
 	
-	@Column
+	@ManyToOne
+    @JoinColumn(name = "id_ispit", referencedColumnName= "id_student")
 	private Ispit ispit;
 	
 	@Column

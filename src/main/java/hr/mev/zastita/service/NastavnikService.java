@@ -9,6 +9,8 @@ public interface NastavnikService {
 	Nastavnik updateNastavnik(Nastavnik nastavnik);
 	
 	Nastavnik getNastavnik(long id_nastavnik);
+	
+	Iterable<Nastavnik> getAllNastavnici();
 
 	void deleteNastavnik(long id_nastavnik);
 }
