@@ -28,53 +28,36 @@ public class NastavnikController {
 	}
 	
 	@RequestMapping(value = "/dodaj_nastavnika", method = RequestMethod.GET)
-	public String noviNastavnikPage(Model model) {
+	public String noviNastavnikGet(Model model) {
 		Nastavnik nastavnik = new Nastavnik();
 		model.addAttribute("nastavnik", nastavnik);
 		return "nastavnici";
 	}
 	
-	
-	
-}
-	
-	@RequestMapping(value = "/novi", method = RequestMethod.GET)
-	public String showNewNastavnikPage(Model model) {
-		Nastavnik nastavnik = new Nastavnik();
-		model.addAttribute("nastavnik", nastavnik);
-		
-		return "novi_nastavnik";
-	}
-	
-	
-	
-	
 	@RequestMapping(value = "/novi", method = RequestMethod.POST)
-	public String showNewNastavnikPage2(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
+	public String noviNastavnikPost(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
 		service.createNastavnik(nastavnik);
 		return "redirect:/nastavnik/";
 	}
 	
-	
-	@RequestMapping("/uredi/{id}")
-	public ModelAndView showEditNastavnikPage(@PathVariable(name = "id") int id) {
-		ModelAndView mav = new ModelAndView("uredi_nastavnik");
-		Nastavnik nastavnik = service.getNastavnik(id);
+	@RequestMapping("(uredi_nastavnika/{id_nastavnik}")
+	public ModelAndView pokaziUrediNastavnika(@PathVariable(name = "id_nastavnik") long id_nastavnik) {
+		ModelAndView mav = new ModelAndView("uredi_nastavnika");
+		Nastavnik nastavnik = service.getNastavnik(id_nastavnik);
 		mav.addObject("nastavnik", nastavnik);
-		
 		return mav;
 	}
 	
-	@RequestMapping(value = "/uredi", method = RequestMethod.POST)
-	public String saveNastavnik(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
+	@RequestMapping(value = "/uredi_nastavnika", method = RequestMethod.POST)
+	public String spremiNastavnika(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
 		service.updateNastavnik(nastavnik);
-		
 		return "redirect:/nastavnik/";
 	}
 	
-	@RequestMapping("/brisi/{id}")
-	public String brisiNastavnik(@PathVariable(name = "id") int id) {
-		service.deleteNastavnik(id);
-		return "redirect:/nastavnik/";		
+	@RequestMapping("/brisi/{id_nastavnik}")
+	public String brisiNastavnika(@PathVariable(name = "id_nastavnik") long id_nastavnika) {
+		service.deleteNastavnik(id_nastavnika);
+		return "redirect:/nastavnik/";
 	}
 }
+	
