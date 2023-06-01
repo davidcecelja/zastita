@@ -61,4 +61,9 @@ public class StudentServiceImpl implements StudentService{
 			throw new ResourceNotFoundException("Zapis nije pronađen!");
 		}
 	}
+
+	@Override
+	public Iterable<Student> getAllStudenti() {
+		return this.studentRepository.findAll();
+	}
 }

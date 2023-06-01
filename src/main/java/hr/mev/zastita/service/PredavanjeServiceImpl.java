@@ -59,4 +59,9 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 			throw new ResourceNotFoundException("Zapis nije pronađen.");
 		}
 	}
+
+	@Override
+	public Iterable<Predavanje> getAllPredavanja() {
+		return this.predavanjeRepository.findAll();
+	}
 }

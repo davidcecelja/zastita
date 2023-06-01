@@ -20,22 +20,22 @@ public class NastavnikController {
 	
 	@Autowired
 	private NastavnikService service;
-	
+	// metoda za pregled početne stranice gdje su prikazani svi nastavnici
 	public String viewHomePage(Model model) {
 		ArrayList<Nastavnik> popisNastavnika = (ArrayList<Nastavnik>) service.getAllNastavnici();
 		model.addAttribute("nastavnici", popisNastavnika);
 		return "nastavnici";
 	}
-	
+	 // metoda za dodavanje novog nastavnika
 	@RequestMapping(value = "/dodaj_nastavnika", method = RequestMethod.GET)
-	public String noviNastavnikGet(Model model) {
+	public String dodajNastavnikaGet(Model model) {
 		Nastavnik nastavnik = new Nastavnik();
 		model.addAttribute("nastavnik", nastavnik);
-		return "nastavnici";
+		return "dodaj_nastavnika";
 	}
-	
-	@RequestMapping(value = "/novi", method = RequestMethod.POST)
-	public String noviNastavnikPost(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
+	// metoda post za obradu podataka novog nastavnik koji su stigli metodo get
+	@RequestMapping(value = "/dodaj_nastavnika", method = RequestMethod.POST)
+	public String dodajNastavnikPost(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
 		service.createNastavnik(nastavnik);
 		return "redirect:/nastavnik/";
 	}

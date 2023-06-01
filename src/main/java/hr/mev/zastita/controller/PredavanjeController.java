@@ -22,16 +22,16 @@ public class PredavanjeController {
 	private PredavanjeService service;
 	
 	public String viewHomePage(Model model) {
-		ArrayList<Predavanje> popisNastavnika = (ArrayList<Predavanje>) service.getAllNastavnici();
-		model.addAttribute("nastavnici", popisNastavnika);
-		return "nastavnici";
+		ArrayList<Predavanje> popisPredavanja = (ArrayList<Predavanje>) service.getAllPredavanja();
+		model.addAttribute("predavanja", popisPredavanja);
+		return "predavanja";
 	}
 	
-	@RequestMapping(value = "/dodaj_nastavnika", method = RequestMethod.GET)
-	public String noviNastavnikGet(Model model) {
-		Predavanje nastavnik = new Predavanje();
-		model.addAttribute("nastavnik", nastavnik);
-		return "nastavnici";
+	@RequestMapping(value = "/dodaj_predavanje", method = RequestMethod.GET)
+	public String novoPredavanjeGet(Model model) {
+		Predavanje predavanje = new Predavanje();
+		model.addAttribute("predavanje", predavanje);
+		return "predavanje";
 	}
 	
 	// pitati chatgpt što znači što u kontroleru i kako je povezano s html th?

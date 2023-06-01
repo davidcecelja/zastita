@@ -54,4 +54,9 @@ public class IspitServiceImpl implements IspitService{
 			throw new ResourceNotFoundException("Zapis nije pronađen!");
 		}
 	}
+
+	@Override
+	public Iterable<Ispit> getAllIspiti() {
+		return this.ispitRepository.findAll();
+	}
 }

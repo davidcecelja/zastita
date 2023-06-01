@@ -14,4 +14,6 @@ public interface StudentService {
 	Student getStudent(long id_student);
 
 	void deleteStudent(long id_student);
+	
+	Iterable<Student> getAllStudenti();
 }

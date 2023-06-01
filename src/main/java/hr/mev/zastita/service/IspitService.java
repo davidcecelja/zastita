@@ -14,4 +14,6 @@ public interface IspitService {
 	Ispit getIspit(long id_ispit);
 
 	void deleteIspit(long id_ispit);
+	
+	Iterable<Ispit> getAllIspiti();
 }

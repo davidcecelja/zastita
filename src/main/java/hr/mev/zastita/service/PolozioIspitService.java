@@ -11,4 +11,6 @@ public interface PolozioIspitService {
 	PolozioIspit getPolozio(long id_polozen);
 
 	void deletePolozio(long id_polozen);
+	
+	Iterable<PolozioIspit> getAllPolozeni();
 }

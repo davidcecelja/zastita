@@ -13,12 +13,11 @@
         <ul>
             <li><a href="/">Početna</a></li>
             <li><a href="/ispiti">Prikaz ispita</a></li>
-            <li><a href="/kontakt">Kontaktirajte nas</a></li>
         </ul>
     </nav>
     <main>
         <h2>Unesite podatke o nastavniku</h2>
-        <form action="/nastavnici" method="post">
+        <form th:action="@{/nastavnik/novi}" method="post">
             <label for="ime">Ime:</label>
             <input type="text" id="ime" name="ime" required>
             <br>
@@ -35,7 +34,7 @@
         </form>
     </main>
     <footer>
-        <p>&copy; 2023 Moja aplikacija. Sva prava pridržana.</p>
+        <p>&copy; 2023. MEV - Zaštita na radu</p>
     </footer>
 </body>
 </html>

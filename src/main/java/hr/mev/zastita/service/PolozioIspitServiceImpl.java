@@ -51,4 +51,9 @@ public class PolozioIspitServiceImpl implements PolozioIspitService{
 			throw new ResourceNotFoundException("Zapis nije pronađen.");
 		}
 	}
+
+	@Override
+	public Iterable<PolozioIspit> getAllPolozeni() {
+		return this.polozioRepository.findAll();
+	}
 }
