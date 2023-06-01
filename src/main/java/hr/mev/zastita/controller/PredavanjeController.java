@@ -5,62 +5,60 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Predavanje;
 import hr.mev.zastita.service.PredavanjeService;
 
 @Controller
-@RequestMapping("/predavanje")
+@RequestMapping("/index")
 public class PredavanjeController {
 	
 	@Autowired
 	private PredavanjeService service;
 	
+	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		ArrayList<Predavanje> popisPredavanja = (ArrayList<Predavanje>) service.getAllPredavanja();
 		model.addAttribute("predavanja", popisPredavanja);
 		return "predavanja";
 	}
 	
-	@RequestMapping(value = "/dodaj_predavanje", method = RequestMethod.GET)
+	@GetMapping("/dodaj_predavanje")
 	public String novoPredavanjeGet(Model model) {
 		Predavanje predavanje = new Predavanje();
 		model.addAttribute("predavanje", predavanje);
-		return "predavanje";
+		return "dodaj_predavanje";
 	}
 	
-	// pitati chatgpt što znači što u kontroleru i kako je povezano s html th?
-	// riješiti mode join ispit i student sukob u jpa
-	
-	
-	@RequestMapping(value = "/novi", method = RequestMethod.POST)
-	public String noviNastavnikPost(@ModelAttribute("nastavnik") Predavanje nastavnik) {
-		service.createNastavnik(nastavnik);
-		return "redirect:/nastavnik/";
+	@PostMapping("/dodaj_predavanje")
+	public String dodajPredavanjePost(@ModelAttribute("predavanje") Predavanje predavanje) {
+		service.createPredavanje(predavanje);
+		return "redirect:/predavanja/dodaj_predavanja"; 
 	}
 	
-	@RequestMapping("(uredi_nastavnika/{id_nastavnik}")
-	public ModelAndView pokaziUrediNastavnika(@PathVariable(name = "id_nastavnik") long id_nastavnik) {
-		ModelAndView mav = new ModelAndView("uredi_nastavnika");
-		Predavanje nastavnik = service.getNastavnik(id_nastavnik);
-		mav.addObject("nastavnik", nastavnik);
+	@GetMapping("/uredi_predavanje/{id_predavanje}")
+	public ModelAndView urediPredavanjeGet(@PathVariable("id_predavanje") long id_predavanje) {
+		ModelAndView mav = new ModelAndView("uredi_predavanje");
+		Predavanje predavanje = service.getPredavanje(id_predavanje);
+		mav.addObject("predavanje", predavanje);
 		return mav;
 	}
 	
-	@RequestMapping(value = "/uredi_nastavnika", method = RequestMethod.POST)
-	public String spremiNastavnika(@ModelAttribute("nastavnik") Predavanje nastavnik) {
-		service.updateNastavnik(nastavnik);
-		return "redirect:/nastavnik/";
+	@PostMapping("/uredi_predavanje")
+	public String spremiPredavanje(@ModelAttribute("predavanje") Predavanje predavanje) {
+		service.updatePredavanje(predavanje);
+		return "redirect:/predavanja/";
 	}
 	
-	@RequestMapping("/brisi/{id_nastavnik}")
-	public String brisiNastavnika(@PathVariable(name = "id_nastavnik") long id_nastavnika) {
-		service.deleteNastavnik(id_nastavnika);
-		return "redirect:/nastavnik/";
+	@GetMapping("/brisi/{id_predavanje}")
+	public String brisiPredavanje(@PathVariable(name = "id_predavanje") long id_predavanje) {
+		service.deletePredavanje(id_predavanje);
+		return "redirect:/predavanje/";
 	}
 }

@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
 <html>
 <head>
     <meta charset="UTF-8">
@@ -7,6 +8,12 @@
 </head>
 <body>
     <h1>Popis nastavnika</h1>
+    <nav>
+        <ul>
+            <li><a href="/">Početna</a></li>
+            <li><a href="/ispiti">Prikaz ispita</a></li>
+        </ul>
+    </nav>
     <table>
         <tr>
             <th>ID</th>
@@ -15,14 +22,14 @@
             <th>Email</th>
             <th>Akcije</th>
         </tr>
-        <!-- Ovdje se dinamički generiraju redovi tablice s podacima o nastavnicima -->
+        
         <tr th:each="nastavnik : ${nastavnici}">
             <td th:text="${nastavnik.id_nastavnik}"></td>
             <td th:text="${nastavnik.ime_nastavnik}"></td>
             <td th:text="${nastavnik.prezime_nastavnik}"></td>
             <td th:text="${nastavnik.email_nastavnik}"></td>
             <td>
-                <!-- Poveznice za uređivanje i brisanje nastavnika -->
+                
                 <a th:href="@{/nastavnici/uredi/{id}(id=${nastavnik.id_nastavnik})}">Uredi</a>
                 <a th:href="@{/nastavnici/obrisi/{id}(id=${nastavnik.id_nastavnik})}">Obriši</a>
             </td>
@@ -31,4 +38,8 @@
 
     <a href="/nastavnici/dodaj_nastavnika">Dodaj novog nastavnika</a>
 </body>
+<footer>
+    <p>&copy; 2023 MEV - Zaštita na radu. Sva prava pridržana.</p>
+</footer>
 </html>
+
