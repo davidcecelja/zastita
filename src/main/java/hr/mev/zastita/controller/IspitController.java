@@ -1,6 +1,7 @@
 package hr.mev.zastita.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,58 +13,58 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import hr.mev.zastita.model.Nastavnik;
-import hr.mev.zastita.service.NastavnikService;
-
-public class IspitController {
-
-}
+import hr.mev.zastita.model.Ispit;
+import hr.mev.zastita.model.Student;
+import hr.mev.zastita.service.IspitService;
 
 
 @Controller
 @RequestMapping("/index")
-public class NastavnikController {
-	
+public class IspitController {
+
 	@Autowired
-	private NastavnikService service;
+	private IspitService service;
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		ArrayList<Nastavnik> popisNastavnika = (ArrayList<Nastavnik>) service.getAllNastavnici();
-		model.addAttribute("nastavnici", popisNastavnika);
-		return "nastavnici";
+		ArrayList<Ispit> popisIspita = (ArrayList<Ispit>) service.getAllIspiti();
+		model.addAttribute("ispiti", popisIspita);
+		return "ispiti";
 	}
 	 
-	@GetMapping("/dodaj_nastavnika")
-	public String dodajNastavnikaGet(Model model) {
-		Nastavnik nastavnik = new Nastavnik();
-		model.addAttribute("nastavnik", nastavnik);
-		return "dodaj_nastavnika";
+	@GetMapping("/dodaj_ispit")
+	public String dodajIspitGet(Model model) {
+		Ispit ispit = new Ispit();
+		model.addAttribute("ispit", ispit);
+		return "dodaj_ispit";
 	}
 	
-	@PostMapping("/dodaj_nastavnika")
-	public String dodajNastavnikPost(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
-		service.createNastavnik(nastavnik);
-		return "redirect:/nastavnici/dodaj_nastavnika"; 
+	@PostMapping("/dodaj_ispit")
+	public String dodajIspitPost(@ModelAttribute("ispit") Ispit ispit) {
+		service.createIspit(ispit);
+		return "redirect:/ispiti/dodaj_ispit"; 
 	}
 	
-	@GetMapping("/uredi_nastavnika/{id_nastavnik}")
-	public ModelAndView urediNastavnikaGet(@PathVariable("id_nastavnik") long id_nastavnik) {
-		ModelAndView mav = new ModelAndView("uredi_nastavnika");
-		Nastavnik nastavnik = service.getNastavnik(id_nastavnik);
-		mav.addObject("nastavnik", nastavnik);
+	@GetMapping("/uredi_ispit/{id_ispit}")
+	public ModelAndView urediIspitGet(@PathVariable("id_ispit") long id_ispit) {
+		ModelAndView mav = new ModelAndView("uredi_ispit");
+		Ispit ispit = service.getIspit(id_ispit);
+		mav.addObject("ispit", ispit);
 		return mav;
 	}
 	
-	@PostMapping("/uredi_nastavnika")
-	public String spremiNastavnika(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
-		service.updateNastavnik(nastavnik);
-		return "redirect:/nastavnici/";
+	@PostMapping("/uredi_ispit")
+	public String spremiIspit(@ModelAttribute("ispit") Ispit ispit) {
+		service.updateIspit(ispit, List<Student> polozili);
+		return "redirect:/ispiti/";
 	}
 	
-	@GetMapping("/brisi/{id_nastavnik}")
-	public String brisiNastavnika(@PathVariable(name = "id_nastavnik") long id_nastavnik) {
-		service.deleteNastavnik(id_nastavnik);
-		return "redirect:/nastavnici/";
+	@GetMapping("/brisi/{id_ispit}")
+	public String brisiIspit(@PathVariable(name = "id_ispit") long id_ispit) {
+		service.deleteIspit(id_ispit);
+		return "redirect:/ispiti/";
 	}
 }
+
+
+	
