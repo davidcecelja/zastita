@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Ispit;
-import hr.mev.zastita.model.Student;
 import hr.mev.zastita.service.IspitService;
 
 
@@ -54,8 +54,9 @@ public class IspitController {
 	}
 	
 	@PostMapping("/uredi_ispit")
-	public String spremiIspit(@ModelAttribute("ispit") Ispit ispit) {
-		service.updateIspit(ispit, List<Student> polozili);
+	public String spremiIspit(@ModelAttribute("ispit") Ispit ispit, @RequestParam("polozili") List<Ispit> polozili) {
+		ispit.setPolozili(polozili);
+		service.updateIspit(ispit, polozili);
 		return "redirect:/ispiti/";
 	}
 	

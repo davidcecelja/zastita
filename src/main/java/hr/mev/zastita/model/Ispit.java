@@ -28,14 +28,14 @@ public class Ispit {
 	@Column
 	private Date datum_ispita;
 	
-	@OneToMany(mappedBy = "student")
-	private List<Student> polozili;
+	@OneToMany(mappedBy = "ispit")
+	private List<Ispit> polozili;
 	
 	public Ispit() {
 		super();
 	}
 
-	public Ispit(long id_ispit, long id_student, String naziv_ispit, Date datum_ispita, List<Student> polozili) {
+	public Ispit(long id_ispit, long id_student, String naziv_ispit, Date datum_ispita, List<Ispit> polozili) {
 		super();
 		this.id_ispit = id_ispit;
 		this.id_student = id_student;
@@ -68,11 +68,11 @@ public class Ispit {
 		this.datum_ispita = datum_ispita;
 	}
 
-	public List<Student> getPolozili() {
+	public List<Ispit> getPolozili() {
 		return polozili;
 	}
 
-	public void setPolozili(List<Student> polozili) {
+	public void setPolozili(List<Ispit> polozili) {
 		this.polozili = polozili;
 	}
 

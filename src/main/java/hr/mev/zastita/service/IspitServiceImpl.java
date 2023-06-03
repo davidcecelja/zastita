@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import hr.mev.zastita.exceptions.ResourceNotFoundException;
 import hr.mev.zastita.model.Ispit;
-import hr.mev.zastita.model.Student;
 import hr.mev.zastita.repository.IspitRepository;
 
 public class IspitServiceImpl implements IspitService{
@@ -18,7 +17,7 @@ public class IspitServiceImpl implements IspitService{
 	}
 
 	@Override
-	public Ispit updateIspit(Ispit ispit, List<Student> polozili) throws ResourceNotFoundException {
+	public Ispit updateIspit(Ispit ispit, List<Ispit> polozili) throws ResourceNotFoundException {
 	    Optional<Ispit> ispitDB = this.ispitRepository.findById(ispit.getId_ispit());
 	    if (ispitDB.isPresent()) {
 	        Ispit ispitUpdate = ispitDB.get();

@@ -15,15 +15,9 @@ import org.springframework.web.servlet.ModelAndView;
 import hr.mev.zastita.model.Nastavnik;
 import hr.mev.zastita.service.NastavnikService;
 
-public class PolozioIspitController {
-
-}
-
-
-
 @Controller
 @RequestMapping("/index")
-public class NastavnikController {
+public class PolozioIspitController {
 	
 	@Autowired
 	private NastavnikService service;
@@ -68,3 +62,8 @@ public class NastavnikController {
 		return "redirect:/nastavnici/";
 	}
 }
+
+
+
+	
+	
