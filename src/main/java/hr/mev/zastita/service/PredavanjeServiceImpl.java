@@ -27,8 +27,13 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 		if(productDB.isPresent()) {
 			Predavanje predavanjeUpdate = productDB.get();
 			predavanjeUpdate.setNaziv_predavanja(predavanje.getNaziv_predavanja());
-			predavanjeUpdate.setDatum_predavanja(predavanje.getDatum_predavanja());
-			predavanjeUpdate.setBroj_studenata(predavanje.getBroj_studenata());
+			predavanjeUpdate.setGodina_predavanja(predavanje.getGodina_predavanja());
+			predavanjeUpdate.setKreirao_korisnik(predavanje.getKreirao_korisnik());
+			predavanjeUpdate.setPocetak_predavanja(predavanje.getPocetak_predavanja());
+			predavanjeUpdate.setZavrsetak_predavanja(predavanje.getZavrsetak_predavanja());
+			predavanjeUpdate.setStatus_predavanja(predavanje.getStatus_predavanja());
+			predavanjeUpdate.setPrijavljeni_studenti(predavanje.getPrijavljeni_studenti());
+			predavanjeUpdate.setOpis_predavanja(predavanje.getOpis_predavanja());
 			predavanjeRepository.save(predavanjeUpdate);
 			return predavanjeUpdate;
 		} else {

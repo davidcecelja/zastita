@@ -8,8 +8,6 @@ import hr.mev.zastita.model.Korisnik;
 @Repository
 public interface UserRepository extends JpaRepository<Korisnik, Long>{
 
-	Korisnik findByUsername(String korisnicko_ime);
-
-	void delete(String korisnicko_ime);
+	
 
 }
