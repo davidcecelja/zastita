@@ -10,4 +10,6 @@ public interface UserRepository extends JpaRepository<User, Long>{
 
 	User findByUsername(String korisnicko_ime);
 
+	void delete(String korisnicko_ime);
+
 }

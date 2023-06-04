@@ -3,58 +3,62 @@ package hr.mev.zastita.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import hr.mev.zastita.model.Nastavnik;
-import hr.mev.zastita.service.NastavnikService;
+import hr.mev.zastita.model.User;
+import hr.mev.zastita.service.UserService;
 
+@Controller
+@RequestMapping("/index")
 public class UserController {
 	
 	@Autowired
-	private NastavnikService service;
+	private UserService service;
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		ArrayList<Nastavnik> popisNastavnika = (ArrayList<Nastavnik>) service.getAllNastavnici();
-		model.addAttribute("nastavnici", popisNastavnika);
-		return "nastavnici";
+		ArrayList<User> popisKorisnika = (ArrayList<User>) service.getKorisnici();
+		model.addAttribute("korisnici", popisKorisnika);
+		return "korisnici";
 	}
 	 
-	@GetMapping("/dodaj_nastavnika")
-	public String dodajNastavnikaGet(Model model) {
-		Nastavnik nastavnik = new Nastavnik();
-		model.addAttribute("nastavnik", nastavnik);
-		return "dodaj_nastavnika";
+	@GetMapping("/dodaj_korisnika")
+	public String dodajUserGet(Model model) {
+		User user = new User();
+		model.addAttribute("user", user);
+		return "dodaj_korisnika";
 	}
 	
-	@PostMapping("/dodaj_nastavnika")
-	public String dodajNastavnikPost(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
-		service.createNastavnik(nastavnik);
-		return "redirect:/nastavnici/dodaj_nastavnika"; 
+	@PostMapping("/dodaj_korisnika")
+	public String dodajKorisnikaPost(@ModelAttribute("user") User user) {
+		service.createUser(user);
+		return "redirect:/korisnici/dodaj_korisnika"; 
 	}
 	
-	@GetMapping("/uredi_nastavnika/{id_nastavnik}")
-	public ModelAndView urediNastavnikaGet(@PathVariable("id_nastavnik") long id_nastavnik) {
-		ModelAndView mav = new ModelAndView("uredi_nastavnika");
-		Nastavnik nastavnik = service.getNastavnik(id_nastavnik);
-		mav.addObject("nastavnik", nastavnik);
+	@GetMapping("/uredi_korisnika/{username}")
+	public ModelAndView urediKorisnikaGet(@PathVariable("username") String username) {
+		ModelAndView mav = new ModelAndView("uredi_korisnika");
+		User user = service.getUserByUsername(username);
+		mav.addObject("user", user);
 		return mav;
 	}
 	
-	@PostMapping("/uredi_nastavnika")
-	public String spremiNastavnika(@ModelAttribute("nastavnik") Nastavnik nastavnik) {
-		service.updateNastavnik(nastavnik);
-		return "redirect:/nastavnici/";
+	@PostMapping("/uredi_korisnika")
+	public String spremiKorisnika(@ModelAttribute("user") User user) {
+		service.updateUser(user);
+		return "redirect:/korisnici/";
 	}
 	
-	@GetMapping("/brisi/{id_nastavnik}")
-	public String brisiNastavnika(@PathVariable(name = "id_nastavnik") long id_nastavnik) {
-		service.deleteNastavnik(id_nastavnik);
-		return "redirect:/nastavnici/";
+	@GetMapping("/brisi/{korisnicko_ime}")
+	public String brisiKorisnika(@PathVariable(name = "korisnicko_ime") String korisnicko_ime) {
+		service.deleteUser(korisnicko_ime);
+		return "redirect:/korisnici/";
 	}
 }
