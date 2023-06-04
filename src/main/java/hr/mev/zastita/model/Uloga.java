@@ -12,6 +12,16 @@ public class Uloga {
 
 	@Column
 	private String uloga;
+	
+	public Uloga() {
+		super();
+	}
+
+	public Uloga(long id, String uloga) {
+		super();
+		this.id = id;
+		this.uloga = uloga;
+	}
 
 	public long getId() {
 		return id;

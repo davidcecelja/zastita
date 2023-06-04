@@ -11,8 +11,10 @@ public class Korisnik {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
+	
 	@Column
 	private String korisnicko_ime;
+	
 	@Column
 	private String lozinka;
 
@@ -25,9 +27,24 @@ public class Korisnik {
 	@Column
 	private String email;
 
-
 	@OneToMany
 	private List<Uloga> uloge;
+
+	public Korisnik() {
+		super();
+	}
+	
+	public Korisnik(long id, String korisnicko_ime, String lozinka, String ime, String prezime, String email,
+			List<Uloga> uloge) {
+		super();
+		this.id = id;
+		this.korisnicko_ime = korisnicko_ime;
+		this.lozinka = lozinka;
+		this.ime = ime;
+		this.prezime = prezime;
+		this.email = email;
+		this.uloge = uloge;
+	}
 
 	public long getId() {
 		return id;
