@@ -2,6 +2,7 @@ package hr.mev.zastita.controller;
 
 import java.util.ArrayList;
 
+import hr.mev.zastita.model.Korisnik;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import hr.mev.zastita.model.User;
 import hr.mev.zastita.service.UserService;
 
 @Controller
@@ -24,35 +24,35 @@ public class UserController {
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
-		ArrayList<User> popisKorisnika = (ArrayList<User>) service.getKorisnici();
+		ArrayList<Korisnik> popisKorisnika = (ArrayList<Korisnik>) service.getKorisnici();
 		model.addAttribute("korisnici", popisKorisnika);
 		return "korisnici";
 	}
 	 
 	@GetMapping("/dodaj_korisnika")
 	public String dodajUserGet(Model model) {
-		User user = new User();
-		model.addAttribute("user", user);
+		Korisnik korisnik = new Korisnik();
+		model.addAttribute("user", korisnik);
 		return "dodaj_korisnika";
 	}
 	
 	@PostMapping("/dodaj_korisnika")
-	public String dodajKorisnikaPost(@ModelAttribute("user") User user) {
-		service.createUser(user);
+	public String dodajKorisnikaPost(@ModelAttribute("user") Korisnik korisnik) {
+		service.createUser(korisnik);
 		return "redirect:/korisnici/dodaj_korisnika"; 
 	}
 	
 	@GetMapping("/uredi_korisnika/{username}")
 	public ModelAndView urediKorisnikaGet(@PathVariable("username") String username) {
 		ModelAndView mav = new ModelAndView("uredi_korisnika");
-		User user = service.getUserByUsername(username);
-		mav.addObject("user", user);
+		Korisnik korisnik = service.getUserByUsername(username);
+		mav.addObject("user", korisnik);
 		return mav;
 	}
 	
 	@PostMapping("/uredi_korisnika")
-	public String spremiKorisnika(@ModelAttribute("user") User user) {
-		service.updateUser(user);
+	public String spremiKorisnika(@ModelAttribute("user") Korisnik korisnik) {
+		service.updateUser(korisnik);
 		return "redirect:/korisnici/";
 	}
 	

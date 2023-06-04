@@ -1,16 +1,16 @@
 package hr.mev.zastita.service;
 
-import hr.mev.zastita.model.PolozioIspit;
+import hr.mev.zastita.model.Prijava;
 
 public interface PolozioIspitService {
 	
-	PolozioIspit createPolozio(PolozioIspit polozen);
+	Prijava createPolozio(Prijava polozen);
 
-	PolozioIspit updatePolozio(PolozioIspit polozen);
+	Prijava updatePolozio(Prijava polozen);
 	
-	PolozioIspit getPolozio(long id_polozen);
+	Prijava getPolozio(long id_polozen);
 
 	void deletePolozio(long id_polozen);
 	
-	Iterable<PolozioIspit> getAllPolozeni();
+	Iterable<Prijava> getAllPolozeni();
 }

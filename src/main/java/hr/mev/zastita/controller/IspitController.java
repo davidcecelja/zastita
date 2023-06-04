@@ -19,7 +19,7 @@ import hr.mev.zastita.service.IspitService;
 
 
 @Controller
-@RequestMapping("/index")
+@RequestMapping("/ispit")
 public class IspitController {
 
 	@Autowired

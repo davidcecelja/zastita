@@ -2,17 +2,17 @@ package hr.mev.zastita.service;
 
 import java.util.List;
 
-import hr.mev.zastita.model.User;
+import hr.mev.zastita.model.Korisnik;
 
 public interface UserService {
 	
-	List<User> getKorisnici();
+	List<Korisnik> getKorisnici();
     
-    User getUserByUsername(String username);
+    Korisnik getUserByUsername(String username);
     
-    User createUser(User user);
+    Korisnik createUser(Korisnik korisnik);
     
-    User updateUser(User user);
+    Korisnik updateUser(Korisnik korisnik);
     
     void deleteUser(String korisnicko_ime);
 }

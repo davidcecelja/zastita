@@ -3,7 +3,7 @@ package hr.mev.zastita.service;
 import java.util.Optional;
 
 import hr.mev.zastita.exceptions.ResourceNotFoundException;
-import hr.mev.zastita.model.PolozioIspit;
+import hr.mev.zastita.model.Prijava;
 import hr.mev.zastita.repository.PolozioIspitRepository;
 
 public class PolozioIspitServiceImpl implements PolozioIspitService{
@@ -11,15 +11,15 @@ public class PolozioIspitServiceImpl implements PolozioIspitService{
 	private PolozioIspitRepository polozioRepository;
 	
 	@Override
-	public PolozioIspit createPolozio(PolozioIspit polozen) {
+	public Prijava createPolozio(Prijava polozen) {
 		return polozioRepository.save(polozen);
 	}
 
 	@Override
-	public PolozioIspit updatePolozio(PolozioIspit polozen) {
-		Optional<PolozioIspit> productDB = this.polozioRepository.findById(polozen.getId_polozen());
+	public Prijava updatePolozio(Prijava polozen) {
+		Optional<Prijava> productDB = this.polozioRepository.findById(polozen.getId_polozen());
 		if(productDB.isPresent()) {
-			PolozioIspit polozioUpdate = productDB.get();
+			Prijava polozioUpdate = productDB.get();
 			polozioUpdate.setDatumPolaganja(polozen.getDatumPolaganja());
 			polozioRepository.save(polozioUpdate);
 			return polozioUpdate;
@@ -29,22 +29,22 @@ public class PolozioIspitServiceImpl implements PolozioIspitService{
 	}
 
 	@Override
-	public PolozioIspit getPolozio(long id_polozen) {
+	public Prijava getPolozio(long id_polozen) {
 
 		if(id_polozen == 0) 
-			return new PolozioIspit();
+			return new Prijava();
 		
-		Optional<PolozioIspit> productDB = this.polozioRepository.findById(id_polozen);
+		Optional<Prijava> productDB = this.polozioRepository.findById(id_polozen);
 		if(productDB.isPresent()) {
 			return productDB.get();
 		} else {
-			return new PolozioIspit();
+			return new Prijava();
 		}		
 	}
 
 	@Override
 	public void deletePolozio(long id_polozen) {
-		Optional<PolozioIspit> productDB = this.polozioRepository.findById(id_polozen);
+		Optional<Prijava> productDB = this.polozioRepository.findById(id_polozen);
 		if(productDB.isPresent()) {
 			this.polozioRepository.delete(productDB.get());
 		} else {
@@ -53,7 +53,7 @@ public class PolozioIspitServiceImpl implements PolozioIspitService{
 	}
 
 	@Override
-	public Iterable<PolozioIspit> getAllPolozeni() {
+	public Iterable<Prijava> getAllPolozeni() {
 		return this.polozioRepository.findAll();
 	}
 }

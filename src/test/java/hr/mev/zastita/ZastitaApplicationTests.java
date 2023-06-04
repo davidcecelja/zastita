@@ -8,6 +8,7 @@ class ZastitaApplicationTests {
 
 	@Test
 	void contextLoads() {
+
 	}
 
 }
