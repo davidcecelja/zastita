@@ -3,12 +3,12 @@ package hr.mev.zastita.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import hr.mev.zastita.model.User;
+import hr.mev.zastita.model.Korisnik;
 
 @Repository
-public interface UserRepository extends JpaRepository<User, Long>{
+public interface UserRepository extends JpaRepository<Korisnik, Long>{
 
-	User findByUsername(String korisnicko_ime);
+	Korisnik findByUsername(String korisnicko_ime);
 
 	void delete(String korisnicko_ime);
 
