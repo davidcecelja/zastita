@@ -1,11 +1,13 @@
 package hr.mev.zastita.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import hr.mev.zastita.exceptions.ResourceNotFoundException;
+import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.model.Predavanje;
 import hr.mev.zastita.repository.PredavanjeRepository;
 
@@ -32,7 +34,7 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 			predavanjeUpdate.setPocetak_predavanja(predavanje.getPocetak_predavanja());
 			predavanjeUpdate.setZavrsetak_predavanja(predavanje.getZavrsetak_predavanja());
 			predavanjeUpdate.setStatus_predavanja(predavanje.getStatus_predavanja());
-			predavanjeUpdate.setPrijavljeni_studenti(predavanje.getPrijavljeni_studenti());
+			predavanjeUpdate.setPrijavljeni_studenti((List<Korisnik>) predavanje.getPrijavljeni_studenti());
 			predavanjeUpdate.setOpis_predavanja(predavanje.getOpis_predavanja());
 			predavanjeRepository.save(predavanjeUpdate);
 			return predavanjeUpdate;

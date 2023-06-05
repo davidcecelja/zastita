@@ -15,10 +15,7 @@ public class SecurityConfiguration {
 	 .inMemoryAuthentication()
 	 .withUser("admin").password("{noop}pass").roles("USER");
 	 }
-
 }
-
-
 
 
 

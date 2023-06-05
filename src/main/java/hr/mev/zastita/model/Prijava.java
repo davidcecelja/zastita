@@ -104,3 +104,5 @@ public class Prijava {
 		this.polozeno = polozeno;
 	}
 }
+
+	

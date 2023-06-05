@@ -8,27 +8,20 @@ public class Uloga {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
+	private long id_uloga;
 
 	@Column
 	private String uloga;
 	
-	public Uloga() {
-		super();
-	}
-
-	public Uloga(long id, String uloga) {
-		super();
-		this.id = id;
-		this.uloga = uloga;
-	}
+	@ManyToMany(mappedBy = "clanovi", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    private Set<Korisnik> korisnici = new HashSet<>();
 
 	public long getId() {
-		return id;
+		return id_uloga;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.id_uloga = id;
 	}
 
 	public String getUloga() {
@@ -39,4 +32,7 @@ public class Uloga {
 		this.uloga = uloga;
 	}
 }
+	
+
+
 	
