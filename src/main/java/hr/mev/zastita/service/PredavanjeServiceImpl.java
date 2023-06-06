@@ -1,5 +1,5 @@
 package hr.mev.zastita.service;
-/*
+
 import java.util.List;
 import java.util.Optional;
 
@@ -25,11 +25,10 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	@Override
 	public Predavanje updatePredavanje(Predavanje predavanje) throws ResourceNotFoundException {
 		
-		Optional<Predavanje> productDB = this.predavanjeRepository.findById(predavanje.getId_predavanje());
+		Optional<Predavanje> productDB = this.predavanjeRepository.findById(predavanje.getId());
 		if(productDB.isPresent()) {
 			Predavanje predavanjeUpdate = productDB.get();
 			predavanjeUpdate.setNaziv_predavanja(predavanje.getNaziv_predavanja());
-			predavanjeUpdate.setGodina_predavanja(predavanje.getGodina_predavanja());
 			predavanjeUpdate.setKreirao_korisnik(predavanje.getKreirao_korisnik());
 			predavanjeUpdate.setPocetak_predavanja(predavanje.getPocetak_predavanja());
 			predavanjeUpdate.setZavrsetak_predavanja(predavanje.getZavrsetak_predavanja());
@@ -39,17 +38,17 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 			predavanjeRepository.save(predavanjeUpdate);
 			return predavanjeUpdate;
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen : " + predavanje.getId_predavanje());
+			throw new ResourceNotFoundException("Zapis nije pronađen : " + predavanje.getId());
 		}		
 	}
 
 	@Override
-	public Predavanje getPredavanje(long id_predavanje) {
+	public Predavanje getPredavanje(long id) {
 		
-		if(id_predavanje == 0) 
+		if(id == 0) 
 			return new Predavanje();
 		
-		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id_predavanje);
+		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id);
 		if(productDB.isPresent()) {
 			return productDB.get();
 		} else {
@@ -58,8 +57,8 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	}
 
 	@Override
-	public void deletePredavanje(long id_predavanje) {
-		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id_predavanje);
+	public void deletePredavanje(long id) {
+		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id);
 		if(productDB.isPresent()) {
 			this.predavanjeRepository.delete(productDB.get());
 		} else {
@@ -71,4 +70,4 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	public Iterable<Predavanje> getAllPredavanja() {
 		return this.predavanjeRepository.findAll();
 	}
-}*/
+}

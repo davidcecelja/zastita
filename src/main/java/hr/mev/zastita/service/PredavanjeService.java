@@ -8,9 +8,9 @@ public interface PredavanjeService {
 
 	Predavanje updatePredavanje(Predavanje predavanje);
 	
-	Predavanje getPredavanje(long id_predavanje);
+	Predavanje getPredavanje(long id);
 
-	void deletePredavanje(long id_predavanje);
+	void deletePredavanje(long id);
 	
 	Iterable<Predavanje> getAllPredavanja();
 }
