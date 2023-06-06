@@ -1,8 +1,8 @@
 package hr.mev.zastita.model;
 
-import jakarta.persistence.*;
+import java.util.List;
 
-import java.util.Set;
+import jakarta.persistence.*;
 
 @Table(name="korisnik")
 @Entity
@@ -21,7 +21,7 @@ public class Korisnik {
 	@Column
 	private String lozinka;
 
-	@Transient
+	@Column
 	private String email;
 	
 	@PrePersist
@@ -34,10 +34,10 @@ public class Korisnik {
 	    }
 	}
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name = "korisnik_uloga", joinColumns = @JoinColumn(name = "id_korisnik"), inverseJoinColumns = @JoinColumn(name = "id_uloga"))
-	private Set<Uloga> uloge;
-
+	@ManyToMany
+	private List<Predavanje> predavanja;
 	
+	@Column
+	private String uloga;
 }
 	

@@ -1,5 +1,5 @@
 package hr.mev.zastita.service;
-
+/*
 import java.util.List;
 import java.util.Optional;
 
@@ -71,4 +71,4 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	public Iterable<Predavanje> getAllPredavanja() {
 		return this.predavanjeRepository.findAll();
 	}
-}
+}*/

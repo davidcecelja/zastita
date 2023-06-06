@@ -11,7 +11,7 @@ public class Predavanje {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id_predavanje;
+	private long id;
 	
 	@Column
 	private String naziv_predavanja;
@@ -28,19 +28,13 @@ public class Predavanje {
 	@Column
 	private String status_predavanja;
 
-	@Column
-	private Integer godina_predavanja;
-
-	@Column
+	@ManyToMany
 	private List<Korisnik> prijavljeni_studenti;
 
-	@OneToOne
+	@ManyToMany
 	@JoinColumn(name = "kreirao_korisnik_id", referencedColumnName = "id")
 	private Korisnik kreirao_korisnik;
-	
-	public Predavanje() {
-		super();
-	}
-
-	
 }
+
+
+
