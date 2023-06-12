@@ -8,6 +8,7 @@ public class WebController {
 
 	@GetMapping(value = "/")
 	public String PocetnaStranica() {
-		return "index";
+		
+		return "pocetna";
 	}
 }
