@@ -34,7 +34,7 @@ public class KorisnikController {
 	@PostMapping("/dodaj_korisnika")
 	public String dodajKorisnikPost(@ModelAttribute("korisnik") Korisnik korisnik) {
 		service.createKorisnik(korisnik);
-		return "redirect:/korisnici/dodaj_korisnika"; 
+		return "redirect:/korisnici/"; 
 	}
 	
 	@GetMapping("/uredi_korisnika/{id}")
