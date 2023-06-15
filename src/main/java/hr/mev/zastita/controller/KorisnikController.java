@@ -3,41 +3,46 @@ package hr.mev.zastita.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
 
+@Controller
+@RequestMapping("/pocetna")
 public class KorisnikController {
+	
 	@Autowired
 	private KorisnikService service;
 	
-	@GetMapping("korisnik")
+	@GetMapping("/")
 	public String viewHomePage(Model model) {
 		ArrayList<Korisnik> popisKorisnika = (ArrayList<Korisnik>) service.getAllKorisnik();
 		model.addAttribute("korisnici", popisKorisnika);
-		return "korisnici";
+		return "pocetna";
 	}
 	
-	@GetMapping("/dodaj_korisnika")
+	@GetMapping("/novi")
 	public String noviKorisnikGet(Model model) {
 		Korisnik korisnik = new Korisnik();
 		model.addAttribute("korisnik", korisnik);
-		return "korisnik";
+		return "novi_korisnik";
 	}
 	
-	@PostMapping("/dodaj_korisnika")
+	@PostMapping("/novi")
 	public String dodajKorisnikPost(@ModelAttribute("korisnik") Korisnik korisnik) {
 		service.createKorisnik(korisnik);
-		return "redirect:/korisnici/"; 
+		return "redirect:/pocetna/"; 
 	}
 	
-	@GetMapping("/uredi_korisnika/{id}")
+	@GetMapping("/uredi_korisnik/{id}")
 	public ModelAndView urediKorisnikGet(@PathVariable("id") long id) {
 		ModelAndView mav = new ModelAndView("uredi_korisnika");
 		Korisnik korisnik = service.getKorisnik(id);
@@ -45,15 +50,15 @@ public class KorisnikController {
 		return mav;
 	}
 	
-	@PostMapping("/uredi_korisnika")
+	@PostMapping("/uredi_korisnik")
 	public String spremiKorisnika(@ModelAttribute("korisnik") Korisnik korisnik) {
 		service.updateKorisnik(korisnik);
-		return "redirect:/korisnici/";
+		return "redirect:/pocetna/";
 	}
 	
 	@GetMapping("/brisi/{id}")
 	public String brisiKorisnik(@PathVariable(name = "id") long id) {
 		service.deleteKorisnik(id);
-		return "redirect:/korisnici/";
+		return "redirect:/pocetna/";
 	}
 }

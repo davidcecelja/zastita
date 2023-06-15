@@ -6,50 +6,31 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-<div align="center">
- <h1>ZAŠTTIA NA RADU</h1>
- 
- <!-- Prikaz popisa korisnika -->
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>Ime</th>
-            <th>Prezime</th>
-            <th>Email</th>
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Iteracija kroz popis korisnika -->
-        <tr th:each="korisnik : ${korisnici}">
-            <td th:text="${korisnik.ime}"></td>
-            <td th:text="${korisnik.prezime}"></td>
-            <td th:text="${korisnik.email}"></td>
-        </tr>
-    </tbody>
-</table>
-
-<!-- Dodavanje novog korisnika -->
-<form th:action="@{/dodaj_korisnika}" method="post" th:object="${korisnik}" class="form">
-    <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
-    <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
-    <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
-    <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
-    <input type="submit" value="Dodaj korisnika" class="btn btn-primary" />
+<form th:action="@{/registracija}" method="get">
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Registracija -></button>
 </form>
 
-<!-- Uređivanje postojećeg korisnika -->
-<form th:action="@{/uredi_korisnika}" method="post" th:object="${korisnik}" class="form">
-    <input type="hidden" th:field="*{id}" />
-    <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
-    <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
-    <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
-    <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
-    <input type="submit" value="Spremi" class="btn btn-primary" />
-</form>
+<div class="container">
+    <form th:action="@{/login}" method="POST" class="form-signin">
+        <h3 class="form-signin-heading" th:text="Dobrodošli"></h3>
+        <br/>
+        <input type="text" id="email" name="email" th:placeholder="Email"
+               class="form-control"/> <br/>
+        <input type="password" th:placeholder="Lozinka"
+               id="password" name="password" class="form-control"/> <br/>
 
-<!-- Brisanje korisnika -->
-<a th:href="@{/brisi/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
-
+        <div align="center" th:if="${param.error}">
+            <p style="font-size: 20; color: #FF1C19;">Molim vas da provjerite vaš email ili lozinku</p>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
+                th:text="PRIJAVA"></button>
+    </form>
 </div>
 </body>
 </html>
+
+
+
+
+
+
