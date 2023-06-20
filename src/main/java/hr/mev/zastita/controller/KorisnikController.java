@@ -16,13 +16,13 @@ import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
 
 @Controller
-@RequestMapping("/pocetna")
+@RequestMapping("/korisnik")
 public class KorisnikController {
 	
 	@Autowired
 	private KorisnikService service;
 	
-	@GetMapping("/")
+	@GetMapping("/pocetna")
 	public String viewHomePage(Model model) {
 		ArrayList<Korisnik> popisKorisnika = (ArrayList<Korisnik>) service.getAllKorisnik();
 		model.addAttribute("korisnici", popisKorisnika);

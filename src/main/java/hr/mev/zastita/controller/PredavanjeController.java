@@ -16,13 +16,13 @@ import hr.mev.zastita.model.Predavanje;
 import hr.mev.zastita.service.PredavanjeService;
 
 @Controller
-@RequestMapping("/pocetna")
+@RequestMapping("/predavanje")
 public class PredavanjeController {
 	
 	@Autowired
 	private PredavanjeService service;
 	
-	@GetMapping("predavanje")
+	@GetMapping("/predavanje")
 	public String viewHomePage(Model model) {
 		ArrayList<Predavanje> popisPredavanja = (ArrayList<Predavanje>) service.getAllPredavanja();
 		model.addAttribute("predavanja", popisPredavanja);
@@ -33,13 +33,13 @@ public class PredavanjeController {
 	public String novoPredavanjeGet(Model model) {
 		Predavanje predavanje = new Predavanje();
 		model.addAttribute("predavanje", predavanje);
-		return "dodaj_predavanje";
+		return "predavanja";
 	}
 	
 	@PostMapping("/dodaj_predavanje")
 	public String dodajPredavanjePost(@ModelAttribute("predavanje") Predavanje predavanje) {
 		service.createPredavanje(predavanje);
-		return "redirect:/predavanja/dodaj_predavanja"; 
+		return "redirect:/predavanja/"; 
 	}
 	
 	@GetMapping("/uredi_predavanje/{id}")
@@ -57,8 +57,8 @@ public class PredavanjeController {
 	}
 	
 	@GetMapping("/brisi/{id}")
-	public String brisiPredavanje(@PathVariable(name = "id_predavanje") long id) {
+	public String brisiPredavanje(@PathVariable(name = "id") long id) {
 		service.deletePredavanje(id);
-		return "redirect:/predavanje/";
+		return "redirect:/predavanja/";
 	}
 }

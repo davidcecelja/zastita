@@ -3,22 +3,26 @@ package hr.mev.zastita.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Prijava;
 import hr.mev.zastita.service.PrijavaService;
 
+@Controller
+@RequestMapping("/prijava")
 public class PrijavaController {
 	
 	@Autowired
 	private PrijavaService service;
 	
-	@GetMapping("prijava")
+	@GetMapping("/prijava")
 	public String viewHomePage(Model model) {
 		ArrayList<Prijava> popisPrijava = (ArrayList<Prijava>) service.getAllPrijave();
 		model.addAttribute("prijave", popisPrijava);
@@ -49,7 +53,7 @@ public class PrijavaController {
 	@PostMapping("/uredi_prijavu")
 	public String spremiPrijavu(@ModelAttribute("prijava") Prijava prijava) {
 		service.updatePrijava(prijava);
-		return "redirect:/korisnici/";
+		return "redirect:/prijave/";
 	}
 	
 	@GetMapping("/brisi/{id}")
