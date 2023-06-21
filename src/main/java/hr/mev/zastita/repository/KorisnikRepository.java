@@ -7,5 +7,6 @@ import hr.mev.zastita.model.Korisnik;
 
 @Repository
 public interface KorisnikRepository extends JpaRepository<Korisnik, Long>{
-
+	
+	Korisnik findByEmail(String email);
 }

@@ -3,6 +3,7 @@ package hr.mev.zastita.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Korisnik;
@@ -61,4 +63,38 @@ public class KorisnikController {
 		service.deleteKorisnik(id);
 		return "redirect:/pocetna/";
 	}
+	
+	@GetMapping("/registracija")
+	public String prikaziFormuRegistracije(Model model) {
+		model.addAttribute("korisnik", new Korisnik());
+		return "register";
+	}
+	
+	@PostMapping("/registracija")
+	public String registracijaKorisnika(Korisnik korisnik) {
+		service.registracijaKorisnika(korisnik);
+		return "redirect:/korisnik/prijava";
+	}
+	
+	@GetMapping("/prijava")
+	public String prikaziFormuPrijave() {
+		return "login";
+	}
+	
+	@PostMapping("/prijava")
+	public String prijavaKorisnika(@RequestParam("email") String email, @RequestParam("lozinka") String lozinka) {
+	    try {
+	    	service.prijavaKorisnika(email, lozinka);
+	        return "redirect:/home";
+	    } catch (BadCredentialsException e) {
+	        return "redirect:/korisnik/prijava?error";
+	    }
+	}
+	
+	@GetMapping("/odjava")
+	public String odjavaKorisnika() {
+		service.odjavaKorisnika();
+	    return "redirect:/login";
+	}
 }
+

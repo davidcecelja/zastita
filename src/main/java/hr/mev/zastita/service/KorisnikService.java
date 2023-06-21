@@ -13,4 +13,14 @@ public interface KorisnikService {
 	void deleteKorisnik(long id);
 	
 	Iterable<Korisnik> getAllKorisnik();
+	
+	Korisnik findByEmail(String email);
+
+	boolean autentifikacijaKorisnika(Korisnik korisnik);
+
+	void registracijaKorisnika(Korisnik korisnik);
+
+	void prijavaKorisnika(String email, String lozinka);
+
+	void odjavaKorisnika();
 }
