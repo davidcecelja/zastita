@@ -2,21 +2,19 @@ package hr.mev.zastita.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
 
-@RestController
-@RequestMapping("/korisnici")
+@Controller
 public class KorisnikController {
 	
 	@Autowired
@@ -37,13 +35,13 @@ public class KorisnikController {
 	public String noviKorisnikGet(Model model) {
 		Korisnik korisnik = new Korisnik();
 		model.addAttribute("korisnik", korisnik);
-		return "novi_korisnik";
+		return "pocetna_nastavnik";
 	}
 	
 	@PostMapping("/novi")
 	public String dodajKorisnikPost(@ModelAttribute("korisnik") Korisnik korisnik) {
 		service.registracijaKorisnika(korisnik);
-		return "redirect:/pocetna/"; 
+		return "redirect:/login/"; 
 	}
 	
 	@GetMapping("/uredi_korisnik/{id}")
@@ -57,13 +55,13 @@ public class KorisnikController {
 	@PostMapping("/uredi_korisnik")
 	public String spremiKorisnika(@ModelAttribute("korisnik") Korisnik korisnik) {
 		service.updateKorisnik(korisnik);
-		return "redirect:/pocetna/";
+		return "redirect:/login/";
 	}
 	
 	@GetMapping("/brisi/{id}")
 	public String brisiKorisnik(@PathVariable(name = "id") long id) {
 		service.deleteKorisnik(id);
-		return "redirect:/pocetna/";
+		return "redirect:/login/";
 	}
 	
 	@GetMapping("/registracija")
@@ -75,7 +73,7 @@ public class KorisnikController {
 	@PostMapping("/registracija")
 	public String registracijaKorisnika(Korisnik korisnik) {
 		service.registracijaKorisnika(korisnik);
-		return "redirect:/pocetna/novi_korisnik";
+		return "redirect:/registracija";
 	}
 	
 	@GetMapping("/login")
@@ -89,7 +87,7 @@ public class KorisnikController {
 	    	service.prijavaKorisnika(email, lozinka);
 	        return "redirect:/login";
 	    } catch (BadCredentialsException e) {
-	        return "redirect:/pocetna/novi_korisnik";
+	        return "redirect:/pocetna_nastavnik";
 	    }
 	}
 	
