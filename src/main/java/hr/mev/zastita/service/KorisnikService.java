@@ -4,8 +4,6 @@ import hr.mev.zastita.model.Korisnik;
 
 public interface KorisnikService {
 
-	Korisnik createKorisnik(Korisnik korisnik);
-
 	Korisnik updateKorisnik(Korisnik korisnik);
 	
 	Korisnik getKorisnik(long id);

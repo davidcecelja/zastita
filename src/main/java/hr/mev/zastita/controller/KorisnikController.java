@@ -1,10 +1,7 @@
 package hr.mev.zastita.controller;
 
-import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -12,23 +9,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
 
-@Controller
-@RequestMapping("/korisnik")
+@RestController
+@RequestMapping("/korisnici")
 public class KorisnikController {
 	
 	@Autowired
 	private KorisnikService service;
 	
-	@GetMapping("/pocetna")
-	public String viewHomePage(Model model) {
-		ArrayList<Korisnik> popisKorisnika = (ArrayList<Korisnik>) service.getAllKorisnik();
-		model.addAttribute("korisnici", popisKorisnika);
-		return "pocetna";
+	@GetMapping("/")
+	public String pocetnaStranica(Model model, Korisnik korisnik) {
+		String uloga = korisnik.getUloga();
+	       if(uloga.equals("student")) {
+	    	   return "pocetna_student";
+	       } else if(uloga.equals("nastavnik")) {
+	    	   return "pocetna_nastavnik";
+	       }
+		return uloga;
 	}
 	
 	@GetMapping("/novi")
@@ -40,7 +42,7 @@ public class KorisnikController {
 	
 	@PostMapping("/novi")
 	public String dodajKorisnikPost(@ModelAttribute("korisnik") Korisnik korisnik) {
-		service.createKorisnik(korisnik);
+		service.registracijaKorisnika(korisnik);
 		return "redirect:/pocetna/"; 
 	}
 	
@@ -67,27 +69,27 @@ public class KorisnikController {
 	@GetMapping("/registracija")
 	public String prikaziFormuRegistracije(Model model) {
 		model.addAttribute("korisnik", new Korisnik());
-		return "register";
+		return "korisnik";
 	}
 	
 	@PostMapping("/registracija")
 	public String registracijaKorisnika(Korisnik korisnik) {
 		service.registracijaKorisnika(korisnik);
-		return "redirect:/korisnik/prijava";
+		return "redirect:/pocetna/novi_korisnik";
 	}
 	
-	@GetMapping("/prijava")
+	@GetMapping("/login")
 	public String prikaziFormuPrijave() {
 		return "login";
 	}
 	
-	@PostMapping("/prijava")
+	@PostMapping("/login")
 	public String prijavaKorisnika(@RequestParam("email") String email, @RequestParam("lozinka") String lozinka) {
 	    try {
 	    	service.prijavaKorisnika(email, lozinka);
-	        return "redirect:/home";
+	        return "redirect:/login";
 	    } catch (BadCredentialsException e) {
-	        return "redirect:/korisnik/prijava?error";
+	        return "redirect:/pocetna/novi_korisnik";
 	    }
 	}
 	

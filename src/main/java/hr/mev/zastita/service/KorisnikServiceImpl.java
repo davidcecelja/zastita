@@ -17,15 +17,11 @@ import hr.mev.zastita.repository.KorisnikRepository;
 @Transactional
 public class KorisnikServiceImpl implements KorisnikService{
 	
+	@Autowired
 	private KorisnikRepository repository;
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
-
-	@Override
-	public Korisnik createKorisnik(Korisnik korisnik) {
-		return repository.save(korisnik);
-	}
 
 	@Override
 	public Korisnik updateKorisnik(Korisnik korisnik) throws ResourceNotFoundException {
@@ -98,11 +94,15 @@ public class KorisnikServiceImpl implements KorisnikService{
 	public void prijavaKorisnika(String email, String lozinka) {
 		Korisnik korisnik = repository.findByEmail(email);
 	    if (korisnik != null && passwordEncoder.matches(lozinka, korisnik.getLozinka())) {
-	        // Lozinka se podudara, korisnik je uspješno prijavljen
-	        // Nastavite s daljnjim radnjama
+	    	String uloga = korisnik.getUloga();
+		if (email.endsWith("@student.mev.hr")) {
+	            uloga = "student";
+	        } else if (email.endsWith("@mev.hr")) {
+	            uloga = "nastavnik";
+	        } else {
+	        	throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
+	        }
 	    } else {
-	        // Pogrešna e-mail adresa ili lozinka, obradite ovu situaciju
-	        // Prikazivanje poruke o grešci ili izvođenje odgovarajuće radnje
 	        throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
 	    }
 	}

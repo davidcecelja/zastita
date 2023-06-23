@@ -24,16 +24,6 @@ public class Korisnik {
 	@Column
 	private String email;
 	
-	@PrePersist
-	public void prePersist() {
-	      
-	    if (email.endsWith("@student.mev.hr")) {
-	         uloga = "student";
-	    }else if (email.endsWith("@mev.hr")) {
-	         uloga = "nastavnik";
-	    }
-	}
-	
 	@ManyToMany
 	private List<Predavanje> predavanja;
 	
