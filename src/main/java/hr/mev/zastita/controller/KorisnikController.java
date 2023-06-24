@@ -8,8 +8,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
@@ -82,15 +83,24 @@ public class KorisnikController {
 	}
 	
 	@PostMapping("/login")
-	public String prijavaKorisnika(@RequestParam("email") String email, @RequestParam("lozinka") String lozinka) {
+	public String prijavaKorisnika(@RequestBody Korisnik korisnik, RedirectAttributes redirectAttributes) {
 	    try {
-	    	service.prijavaKorisnika(email, lozinka);
-	        return "redirect:/login";
+	    	String email = korisnik.getEmail();
+	        String lozinka = korisnik.getLozinka();
+	        String uloga = service.prijavaKorisnika(email, lozinka);
+	        if (uloga.equals("student")) {
+	            return "redirect:/pocetna_student";
+	        } else if (uloga.equals("nastavnik")) {
+	            return "redirect:/pocetna_nastavnik";
+	        } else {
+	            throw new IllegalStateException("Nepoznata uloga korisnika");
+	        }
 	    } catch (BadCredentialsException e) {
-	        return "redirect:/pocetna_nastavnik";
+	        redirectAttributes.addFlashAttribute("errorMessage", "Pogrešna e-mail adresa ili lozinka");
+	        return "redirect:/login";
 	    }
 	}
-	
+
 	@GetMapping("/odjava")
 	public String odjavaKorisnika() {
 		service.odjavaKorisnika();

@@ -91,21 +91,21 @@ public class KorisnikServiceImpl implements KorisnikService{
 	}
 
 	@Override
-	public void prijavaKorisnika(String email, String lozinka) {
-		Korisnik korisnik = repository.findByEmail(email);
+	public String prijavaKorisnika(String email, String lozinka) {
+	    Korisnik korisnik = repository.findByEmail(email);
 	    if (korisnik != null && passwordEncoder.matches(lozinka, korisnik.getLozinka())) {
-	    	String uloga = korisnik.getUloga();
-		if (email.endsWith("@student.mev.hr")) {
+	        String uloga;
+	        if (email.endsWith("@student.mev.hr")) {
 	            uloga = "student";
+	            return "redirect:/pocetna_student";
 	        } else if (email.endsWith("@mev.hr")) {
 	            uloga = "nastavnik";
-	        } else {
-	        	throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
+	            return "redirect:/pocetna_nastavnik";
 	        }
-	    } else {
-	        throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
 	    }
+	    throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
 	}
+
 
 	@Override
 	public void odjavaKorisnika() {
