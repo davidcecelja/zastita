@@ -25,16 +25,16 @@
 </table>
 
 <!-- Dodavanje novog korisnika -->
-<form th:action="@{/dodaj_korisnika}" method="post" th:object="${korisnik}" class="form">
+<form th:action="@{/registracija}" method="post" th:object="${korisnik}" class="form">
     <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
     <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
     <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
     <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
-    <input type="submit" value="Dodaj korisnika" class="btn btn-primary" />
+    <input type="submit" value="Registriraj se" class="btn btn-primary" />
 </form>
 
 <!-- Uređivanje postojećeg korisnika -->
-<form th:action="@{/uredi_korisnika}" method="post" th:object="${korisnik}" class="form">
+<form th:action="@{/uredi_korisnik}" method="post" th:object="${korisnik}" class="form">
     <input type="hidden" th:field="*{id}" />
     <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
     <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
@@ -44,7 +44,7 @@
 </form>
 
 <!-- Brisanje korisnika -->
-<a th:href="@{/brisi/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
+<a th:href="@{/korisnik/brisi/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
 
 </div>
 </body>

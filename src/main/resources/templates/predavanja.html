@@ -23,7 +23,6 @@
     </tr>
   </thead>
   <tbody>
-    <!-- Iteracija kroz popis predavanja -->
     <tr th:each="predavanje : ${predavanja}">
       <td th:text="${predavanje.id}"></td>
       <td th:text="${predavanje.naziv_predavanja}"></td>
@@ -32,39 +31,16 @@
       <td th:text="${predavanje.zavrsetak_predavanja}"></td>
       <td th:text="${predavanje.status_predavanja}"></td>
       <td>
+      <!-- Dodavanje predavanja -->
+        <a th:href="@{/dodaj_predavanje/{id}(id=${predavanje.id})}" class="btn btn-primary">Dodaj</a>
         <!-- Uređivanje postojećeg predavanja -->
         <a th:href="@{/uredi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-primary">Uredi</a>
         <!-- Brisanje predavanja -->
-        <a th:href="@{/brisi/{id}(id_predavanje=${predavanje.id})}" class="btn btn-danger">Izbriši</a>
+        <a th:href="@{/brisi_predavanje/{id}(id_predavanje=${predavanje.id})}" class="btn btn-danger">Izbriši</a>
       </td>
     </tr>
   </tbody>
 </table>
-
-<!-- Dodavanje novog predavanja -->
-<form th:action="@{/dodaj_predavanje}" method="post" th:object="${predavanje}" class="form">
-  <input type="text" th:field="*{naziv_predavanja}" class="form-control" placeholder="Naziv predavanja" />
-  <textarea th:field="*{opis_predavanja}" class="form-control" placeholder="Opis predavanja"></textarea>
-  <input type="datetime-local" th:field="*{pocetak_predavanja}" class="form-control" placeholder="Početak predavanja" />
-  <input type="datetime-local" th:field="*{zavrsetak_predavanja}" class="form-control" placeholder="Završetak predavanja" />
-  <input type="text" th:field="*{status_predavanja}" class="form-control" placeholder="Status predavanja" />
-  <input type="submit" value="Dodaj predavanje" class="btn btn-primary" />
-</form>
-
-<!-- Uređivanje postojećeg predavanja -->
-<form th:action="@{/uredi_predavanje}" method="post" th:object="${predavanje}" class="form">
-  <input type="hidden" th:field="*{id}" />
-  <input type="text" th:field="*{naziv_predavanja}" class="form-control" placeholder="Naziv predavanja" />
-  <textarea th:field="*{opis_predavanja}" class="form-control" placeholder="Opis predavanja"></textarea>
-  <input type="datetime-local" th:field="*{pocetak_predavanja}" class="form-control" placeholder="Početak predavanja" />
-  <input type="datetime-local" th:field="*{zavrsetak_predavanja}" class="form-control" placeholder="Završetak predavanja" />
-  <input type="text" th:field="*{status_predavanja}" class="form-control" placeholder="Status predavanja" />
-  <input type="submit" value="Spremi promjene" class="btn btn-primary" />
-</form>
-
-<!-- Brisanje predavanja -->
-<a th:href="@{/brisi/{id}(id_predavanje=${predavanje.id})}" class="btn btn-danger">Izbriši</a>
-
 
 </div>
 </body>
