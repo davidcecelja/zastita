@@ -5,7 +5,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,9 +18,6 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	private KorisnikRepository repository;
-	
-	@Autowired
-	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Korisnik updateKorisnik(Korisnik korisnik) throws ResourceNotFoundException {
@@ -78,23 +74,21 @@ public class KorisnikServiceImpl implements KorisnikService{
 	public boolean autentifikacijaKorisnika(Korisnik korisnik) {
 		Korisnik spremljeniKorisnik = repository.findByEmail(korisnik.getEmail());
 		if (spremljeniKorisnik != null) {
-			return passwordEncoder.matches(korisnik.getLozinka(), spremljeniKorisnik.getLozinka());
+			return korisnik.getLozinka().equals(spremljeniKorisnik.getLozinka());
 		}
 		return false;
 	}
 
 	@Override
 	public void registracijaKorisnika(Korisnik korisnik) {
-		String enkriptiranaLozinka = passwordEncoder.encode(korisnik.getLozinka());
-		korisnik.setLozinka(enkriptiranaLozinka);
-		repository.save(korisnik);
+	    repository.save(korisnik);
 	}
 
 	@Override
 	public String prijavaKorisnika(String email, String lozinka) {
 	    Korisnik korisnik = repository.findByEmail(email);
-	    if (korisnik != null && passwordEncoder.matches(lozinka, korisnik.getLozinka())) {
-	        String uloga;
+	    if (korisnik != null && lozinka.equals(korisnik.getLozinka())) {
+	        String uloga = null;
 	        if (email.endsWith("@student.mev.hr")) {
 	            uloga = "student";
 	            return "redirect:/pocetna_student";
@@ -105,7 +99,6 @@ public class KorisnikServiceImpl implements KorisnikService{
 	    }
 	    throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
 	}
-
 
 	@Override
 	public void odjavaKorisnika() {
