@@ -54,7 +54,7 @@ public class PredavanjeController {
 		return "redirect:/predavanja/";
 	}
 	
-	@GetMapping("/brisi/{id}")
+	@GetMapping("/predavanje/brisi/{id}")
 	public String brisiPredavanje(@PathVariable(name = "id") long id) {
 		service.deletePredavanje(id);
 		return "redirect:/predavanja/";

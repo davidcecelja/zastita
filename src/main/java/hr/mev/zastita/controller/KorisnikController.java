@@ -59,7 +59,7 @@ public class KorisnikController {
 		return "redirect:/login/";
 	}
 	
-	@GetMapping("/brisi/{id}")
+	@GetMapping("/korisnik/brisi/{id}")
 	public String brisiKorisnik(@PathVariable(name = "id") long id) {
 		service.deleteKorisnik(id);
 		return "redirect:/login/";
