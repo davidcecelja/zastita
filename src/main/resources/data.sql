@@ -1,0 +1,1 @@
+INSERT INTO `korisnik`(`id`, `email`, `ime`, `lozinka`, `prezime`, `uloga`) VALUES (1,'david.cecelja@student.mev.hr','David','12345','Cecelja','STUDENT')
