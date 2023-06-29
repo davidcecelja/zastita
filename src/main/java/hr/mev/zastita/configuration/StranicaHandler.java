@@ -75,5 +75,4 @@ public class StranicaHandler implements AuthenticationSuccessHandler{
 	        }
 	        session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
 	    }
-
 }
