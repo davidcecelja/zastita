@@ -92,9 +92,9 @@ public class KorisnikController {
 	    	String email = korisnik.getEmail();
 	        String lozinka = korisnik.getLozinka();
 	        String uloga = service.prijavaKorisnika(email, lozinka);
-	        if (uloga.equals("student")) {
+	        if (uloga.equals("STUDENT")) {
 	            return "redirect:/pocetna_student";
-	        } else if (uloga.equals("nastavnik")) {
+	        } else if (uloga.equals("NASTAVNIK")) {
 	            return "redirect:/pocetna_nastavnik";
 	        } else {
 	            throw new IllegalStateException("Nepoznata uloga korisnika");

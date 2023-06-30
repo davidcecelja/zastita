@@ -85,23 +85,23 @@ public class KorisnikServiceImpl implements KorisnikService{
 	}
 
 	@Override
+	public void odjavaKorisnika() {
+		SecurityContextHolder.clearContext();
+	}
+
+	@Override
 	public String prijavaKorisnika(String email, String lozinka) {
-	    Korisnik korisnik = repository.findByEmail(email);
+		Korisnik korisnik = repository.findByEmail(email);
+		String role;
 	    if (korisnik != null && lozinka.equals(korisnik.getLozinka())) {
-	        String uloga = null;
 	        if (email.endsWith("@student.mev.hr")) {
-	            uloga = "student";
+	            role = "STUDENT";
 	            return "redirect:/pocetna_student";
 	        } else if (email.endsWith("@mev.hr")) {
-	            uloga = "nastavnik";
+	            role = "NASTAVNIK";
 	            return "redirect:/pocetna_nastavnik";
 	        }
 	    }
 	    throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
-	}
-
-	@Override
-	public void odjavaKorisnika() {
-		SecurityContextHolder.clearContext();
 	}
 }
