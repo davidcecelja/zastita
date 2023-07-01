@@ -18,7 +18,7 @@ public interface KorisnikService {
 
 	void registracijaKorisnika(Korisnik korisnik);
 
-	String prijavaKorisnika(String email, String lozinka);
-
 	void odjavaKorisnika();
+
+	String prijavaKorisnika(String email, String lozinka);
 }

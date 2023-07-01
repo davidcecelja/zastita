@@ -3,7 +3,6 @@ package hr.mev.zastita.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -91,17 +90,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 	@Override
 	public String prijavaKorisnika(String email, String lozinka) {
-		Korisnik korisnik = repository.findByEmail(email);
-		String role;
-	    if (korisnik != null && lozinka.equals(korisnik.getLozinka())) {
-	        if (email.endsWith("@student.mev.hr")) {
-	            role = "STUDENT";
-	            return "redirect:/pocetna_student";
-	        } else if (email.endsWith("@mev.hr")) {
-	            role = "NASTAVNIK";
-	            return "redirect:/pocetna_nastavnik";
-	        }
-	    }
-	    throw new BadCredentialsException("Pogrešna e-mail adresa ili lozinka");
+		
+		return null;
 	}
 }
