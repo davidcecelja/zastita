@@ -94,6 +94,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		 Korisnik korisnik = repository.findByEmail(email);
 		    if (korisnik != null && lozinka.equals(korisnik.getLozinka())) {
 		        String uloga = null;
+		        
 		        if (email.endsWith("@student.mev.hr")) {
 		            uloga = "student";
 		            return "redirect:/pocetna_student";
