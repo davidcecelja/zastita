@@ -29,6 +29,11 @@ public class Korisnik {
 	
 	@Column
 	private String uloga;
+	
+	public enum Uloga {
+	    STUDENT,
+	    NASTAVNIK
+	}
 
 	public Korisnik() {
 		super();
