@@ -81,4 +81,9 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	public Iterable<Predavanje> getAllPredavanja() {
 		return this.predavanjeRepository.findAll();
 	}
+
+	@Override
+	public Iterable<Predavanje> getAllNovaPredavanja() {
+		return this.predavanjeRepository.findAllByStatusPredavanja("NOVO");
+	}
 }

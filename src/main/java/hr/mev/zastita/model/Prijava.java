@@ -1,6 +1,9 @@
 package hr.mev.zastita.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
 
@@ -21,7 +24,8 @@ public class Prijava {
 	private Korisnik student;
 
 	@Column
-	private Date datumPrijave;
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
+	private LocalDateTime datumPrijave;
 
 	@Column
 	private int ocjena;
@@ -33,7 +37,7 @@ public class Prijava {
 		super();
 	}
 
-	public Prijava(long id, Predavanje predavanje, Korisnik student, Date datumPrijave, int ocjena, boolean polozeno) {
+	public Prijava(long id, Predavanje predavanje, Korisnik student, LocalDateTime datumPrijave, int ocjena, boolean polozeno) {
 		super();
 		this.id = id;
 		this.predavanje = predavanje;
@@ -67,11 +71,11 @@ public class Prijava {
 		this.student = student;
 	}
 
-	public Date getDatumPrijave() {
+	public LocalDateTime getDatumPrijave() {
 		return datumPrijave;
 	}
 
-	public void setDatumPrijave(Date datumPrijave) {
+	public void setDatumPrijave(LocalDateTime datumPrijave) {
 		this.datumPrijave = datumPrijave;
 	}
 

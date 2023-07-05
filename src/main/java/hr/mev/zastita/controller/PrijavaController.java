@@ -27,17 +27,10 @@ public class PrijavaController {
 		return "prijave";
 	}
 	
-	@GetMapping("/dodaj_prijavu")
-	public String novaPrijavaGet(Model model) {
-		Prijava prijava = new Prijava();
-		model.addAttribute("prijava", prijava);
-		return "prijava";
-	}
-	
-	@PostMapping("/dodaj_prijavu")
-	public String dodajPrijavuPost(@ModelAttribute("prijava") Prijava prijava) {
-		service.createPrijava(prijava);
-		return "redirect:/prijave/dodaj_prijavu"; 
+	@GetMapping("/dodaj_prijavu/{id}")
+	public String novaPrijavaGet(@PathVariable("id") Long idPredavanja, Model model) {
+		service.createPrijava(idPredavanja);
+		return "redirect:/pocetna-student";
 	}
 	
 	@GetMapping("/uredi_prijavu/{id}")
@@ -54,9 +47,15 @@ public class PrijavaController {
 		return "redirect:/prijave/";
 	}
 	
-	@GetMapping("/brisi/{id}")
+	@GetMapping("/brisi_prijavu/{id}")
 	public String brisiPrijavu(@PathVariable(name = "id") long id) {
 		service.deletePrijava(id);
 		return "redirect:/prijave/";
+	}
+	
+	@GetMapping("/odjavi_prijavu/{id}")
+	public String odjaviPrijavu(@PathVariable(name = "id") long id) {
+		service.odjaviPrijavu(id);
+		return "redirect:/pocetna-student";
 	}
 }

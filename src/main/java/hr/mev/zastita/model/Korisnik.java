@@ -1,6 +1,7 @@
 package hr.mev.zastita.model;
 
 import java.util.List;
+import java.util.ArrayList;
 
 import jakarta.persistence.*;
 
@@ -25,7 +26,7 @@ public class Korisnik {
 	private String email;
 	
 	@ManyToMany
-	private List<Predavanje> predavanja;
+	private List<Predavanje> predavanja = new ArrayList<>();
 	
 	@Column
 	private String uloga;

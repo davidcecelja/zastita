@@ -4,7 +4,7 @@ import hr.mev.zastita.model.Prijava;
 
 public interface PrijavaService {
 
-	Prijava createPrijava(Prijava prijava);
+	Prijava createPrijava(Long idPredavanja);
 
 	Prijava updatePrijava(Prijava prijava);
 	
@@ -12,5 +12,7 @@ public interface PrijavaService {
 
 	void deletePrijava(long id);
 	
-	Iterable<Prijava> getAllPrijave();
+	Iterable<Prijava> getAllPrijave(); // ovo prof vidi
+
+	void odjaviPrijavu(long id);
 }

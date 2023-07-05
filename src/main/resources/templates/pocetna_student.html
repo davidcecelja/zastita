@@ -8,52 +8,37 @@
 <body>
     <div class="container">
         <div class="text-center">
-            <h1>ZAŠTTIA NA RADU</h1>
+            <h1>IsZAŠTTIA NA RADU</h1>
         </div>
-        
-        <!-- Prikaz popisa korisnika -->
         <table class="table">
             <thead class="thead-dark">
                 <tr>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Email</th>
+                    <th>ID</th>
+                    <th>Naziv predavanja</th>
+                    <th>Opis predavanja</th>
+                    <th>Početak predavanja</th>
+                    <th>Završetak predavanja</th>
+                    <th>Status predavanja</th>
+                    <th>Akcije</th>
                 </tr>
             </thead>
             <tbody>
-                <!-- Iteracija kroz popis korisnika -->
-                <tr th:each="korisnik : ${korisnici}">
-                    <td th:text="${korisnik.ime}"></td>
-                    <td th:text="${korisnik.prezime}"></td>
-                    <td th:text="${korisnik.email}"></td>
+                <tr th:each="predavanje : ${predavanja}">
+                    <td th:text="${predavanje.id}"></td>
+                    <td th:text="${predavanje.naziv_predavanja}"></td>
+                    <td th:text="${predavanje.opis_predavanja}"></td>
+                    <td th:text="${predavanje.pocetak_predavanja}"></td>
+                    <td th:text="${predavanje.zavrsetak_predavanja}"></td>
+                    <td th:text="${predavanje.status_predavanja}"></td>  
+                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVI SE</a> </td>
+                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI SE</a> </td>
+                       
                 </tr>
             </tbody>
         </table>
-
-        <!-- Dodavanje novog korisnika -->
-        <form th:action="@{/dodaj_korisnika}" method="post" th:object="${korisnik}" class="form">
-            <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
-            <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
-            <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
-            <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
-            <input type="submit" value="Dodaj korisnika" class="btn btn-primary" />
-        </form>
-
-        <!-- Uređivanje postojećeg korisnika -->
-        <form th:action="@{/uredi_korisnika}" method="post" th:object="${korisnik}" class="form">
-            <input type="hidden" th:field="*{id}" />
-            <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
-            <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
-            <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
-            <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
-            <input type="submit" value="Spremi" class="btn btn-primary" />
-        </form>
-
-        <!-- Brisanje korisnika -->
-        <a th:href="@{/brisi/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
-        
         <!-- Ispis potvrde -->
         <a href="/potvrda">Preuzmi potvrdu</a>
     </div>
 </body>
 </html>
+ 

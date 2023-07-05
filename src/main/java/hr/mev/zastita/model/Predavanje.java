@@ -3,6 +3,7 @@ package hr.mev.zastita.model;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -34,7 +35,7 @@ public class Predavanje {
 	private String status_predavanja;
 
 	@ManyToMany
-	private List<Korisnik> prijavljeni_studenti;
+	private List<Korisnik> prijavljeni_studenti = new ArrayList<>();
 
 	@ManyToOne
 	private Korisnik kreirao_korisnik;

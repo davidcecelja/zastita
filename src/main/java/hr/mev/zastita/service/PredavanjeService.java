@@ -13,4 +13,6 @@ public interface PredavanjeService {
 	void deletePredavanje(long id);
 	
 	Iterable<Predavanje> getAllPredavanja();
+	
+	Iterable<Predavanje> getAllNovaPredavanja();
 }

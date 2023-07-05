@@ -1,11 +1,17 @@
 package hr.mev.zastita.service;
 
+import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import hr.mev.zastita.exceptions.ResourceNotFoundException;
+import hr.mev.zastita.model.Korisnik;
+import hr.mev.zastita.model.Predavanje;
 import hr.mev.zastita.model.Prijava;
 import hr.mev.zastita.repository.PrijavaRepository;
 
@@ -13,10 +19,29 @@ import hr.mev.zastita.repository.PrijavaRepository;
 @Transactional
 public class PrijavaServiceImpl implements PrijavaService{
 	
+	@Autowired
 	private PrijavaRepository repository;
+	
+	@Autowired
+	private KorisnikService korisnikService;
+	
+	@Autowired
+	private PredavanjeService predavanjeService;
 
 	@Override
-	public Prijava createPrijava(Prijava prijava) {
+	public Prijava createPrijava(Long predavanjeId) {
+		Predavanje predavanje = predavanjeService.getPredavanje(predavanjeId);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailKorisnika = auth.getName();
+		Korisnik trenutniKorisnik = korisnikService.findByEmail(emailKorisnika);
+		
+		predavanje.getPrijavljeni_studenti().add(trenutniKorisnik);
+		trenutniKorisnik.getPredavanja().add(predavanje);
+		
+		Prijava prijava = new Prijava();
+		prijava.setDatumPrijave(LocalDateTime.now());
+		prijava.setPredavanje(predavanje);
+		prijava.setStudent(trenutniKorisnik);
 		return repository.save(prijava);
 	}
 
@@ -63,5 +88,21 @@ public class PrijavaServiceImpl implements PrijavaService{
 	@Override
 	public Iterable<Prijava> getAllPrijave() {
 		return this.repository.findAll();
+	}
+
+	@Override
+	public void odjaviPrijavu(long predavanjeId) {
+		Predavanje predavanje = predavanjeService.getPredavanje(predavanjeId);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailKorisnika = auth.getName();
+		Korisnik trenutniKorisnik = korisnikService.findByEmail(emailKorisnika);
+		
+		predavanje.getPrijavljeni_studenti().remove(trenutniKorisnik);
+		trenutniKorisnik.getPredavanja().remove(predavanje);
+		
+		Prijava prijava = this.repository.findByPredavanje_idAndStudent_id(predavanjeId, trenutniKorisnik.getId());
+		this.repository.deleteById(prijava.getId());
+		
+		System.out.println("prijava obrisana");
 	}
 }

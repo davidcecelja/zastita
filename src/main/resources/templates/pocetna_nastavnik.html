@@ -8,7 +8,7 @@
 <body>
     <div class="container">
         <div class="text-center">
-            <h1>ZAŠTTIA NA RADU</h1>
+            <h1>ISPIT - ZAŠTITA NA RADU</h1>
         </div>
                 
          <form th:action="@{/predavanje}" method="get">
@@ -23,15 +23,7 @@
                     <th>Prezime</th>
                     <th>Email</th>
                 </tr>
-            </thead>
-            <tbody>
-                <!-- Iteracija kroz popis korisnika -->
-                <tr th:each="korisnik : ${korisnici}">
-                    <td th:text="${korisnik.ime}"></td>
-                    <td th:text="${korisnik.prezime}"></td>
-                    <td th:text="${korisnik.email}"></td>
-                </tr>
-            </tbody>
+            </thead>           
         </table>
 
         <!-- Dodavanje novog korisnika -->

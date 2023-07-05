@@ -2,6 +2,7 @@ package hr.mev.zastita.controller;
 
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
+import hr.mev.zastita.service.PredavanjeService;
 
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,11 +30,18 @@ public class KorisnikController {
 
     @Autowired
     private KorisnikService service;
+    
+    @Autowired
+    private PredavanjeService predavanjeService;
 
     @GetMapping("/pocetna-student")
     public String pocetnaStranicaStudent(Model model) {
-        model.addAttribute("korisnik", new Korisnik());
-        model.addAttribute("korisnici", new ArrayList<>());
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailKorisnika = auth.getName();
+		Korisnik trenutniKorisnik = service.findByEmail(emailKorisnika);
+		
+		model.addAttribute("korisnik", trenutniKorisnik);
+        model.addAttribute("predavanja", predavanjeService.getAllNovaPredavanja());
         return "pocetna_student";
     }
 
