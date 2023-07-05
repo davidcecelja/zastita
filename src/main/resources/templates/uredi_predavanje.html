@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Uredi predavanje</title>
-    <!-- Dodajte linkove za Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
         integrity="sha384-pzjw8y/4+HM5Q9g7332ExgDvuPjB5pZgxufnUpvq1O4XT9K5t6L5N7wWo+5gAwl7"
         crossorigin="anonymous">
@@ -45,12 +44,9 @@
                     <option th:each="korisnik : ${korisnici}" th:value="${korisnik}" th:text="${korisnik.ime}" />
                 </select>
             </div>
-            
             <button type="submit" class="btn btn-primary">Spremi</button>
         </form>
     </div>
-    
-    <!-- Dodajte skriptu za Bootstrap JS, ako je potrebno -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
         integrity="sha384-pzjw8y/4+HM5Q9g7332ExgDvuPjB5pZgxufnUpvq1O4XT9K5t6L5N7wWo+5gAwl7"
         crossorigin="anonymous"></script>

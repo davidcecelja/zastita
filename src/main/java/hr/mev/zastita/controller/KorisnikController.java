@@ -2,8 +2,15 @@ package hr.mev.zastita.controller;
 
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
+
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 @Controller
@@ -115,6 +123,40 @@ public class KorisnikController {
     public String odjavaKorisnika() {
         service.odjavaKorisnika();
         return "redirect:/login";
+    }
+    
+    @GetMapping("/potvrda")
+    public ResponseEntity<byte[]> generateCertificate() throws IOException {
+        // Dohvaćanje trenutno prijavljenog korisnika
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+
+        // Generiranje sadržaja potvrde
+        String certificateContent = "Ovo je potvrda da je korisnik " + username + " položio ispit iz Zaštite na radu.";
+
+        // Generiranje PDF-a
+        PDDocument document = new PDDocument();
+        PDPage page = new PDPage();
+        document.addPage(page);
+        PDPageContentStream contentStream = new PDPageContentStream(document, page);
+        contentStream.beginText();
+        contentStream.setFont(PDType1Font.HELVETICA_BOLD, 12);
+        contentStream.newLineAtOffset(100, 700);
+        contentStream.showText(certificateContent);
+        contentStream.endText();
+        contentStream.close();
+
+        // Pretvaranje PDF-a u niz bajtova
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        document.save(baos);
+        document.close();
+
+        // Postavljanje zaglavlja za preuzimanje PDF-a
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("attachment", "certificate.pdf");
+
+        return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
     }
 }
 

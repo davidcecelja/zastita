@@ -1,31 +1,28 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Polaganje ispita iz Zaštite na radu</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="utf-8" />
+    <title>Polaganje ispita iz Zaštite na radu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-<form th:action="@{/registracija}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Registracija -></button>
-</form>
+    <div class="container">
+        <form th:action="@{/registracija}" method="get">
+            <button class="btn btn-md btn-warning btn-block" type="submit">Registracija</button>
+        </form>
+        <form th:action="@{/login}" method="post" class="form-signin">
+            <h3 class="form-signin-heading">Dobrodošli</h3>
+            <br/>
+            <input type="text" id="email" name="email" th:placeholder="Email" class="form-control" /> <br/>
+            <input type="password" id="password" name="password" th:placeholder="Lozinka" class="form-control" /> <br/>
 
-<div class="container">
-    <form th:action="@{/login}" method="POST" class="form-signin">
-        <h3 class="form-signin-heading" th:text="Dobrodošli"></h3>
-        <br/>
-        <input type="text" id="email" name="email" th:placeholder="Email"
-               class="form-control"/> <br/>
-        <input type="password" th:placeholder="Lozinka"
-               id="password" name="password" class="form-control"/> <br/>
-
-        <div align="center" th:if="${param.error}">
-            <p style="font-size: 20; color: #FF1C19;">Molim vas da provjerite vaš email ili lozinku</p>
-        </div>
-        <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="Submit"
-                th:text="PRIJAVA"></button>
-    </form>
-</div>
+            <div class="text-center" th:if="${param.error}">
+                <p style="font-size: 20; color: #FF1C19;">Molim vas da provjerite vaš email ili lozinku</p>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="submit">PRIJAVA</button>
+        </form>
+    </div>
 </body>
 </html>
+
 

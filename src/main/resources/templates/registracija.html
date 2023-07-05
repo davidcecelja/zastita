@@ -12,7 +12,6 @@
 <form th:action="@{/}" method="get">
     <button class="btn btn-md btn-warning btn-block" type="Submit">Otiđi na stranicu za prijavu</button>
 </form>
-
 <div class="container">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
@@ -28,7 +27,6 @@
                                class="form-control"/>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-sm-9">
                         <label th:if="${#fields.hasErrors('prezime')}" th:errors="*{prezime}"
@@ -53,19 +51,15 @@
                             class="validation-message"></label>
                     </div>
                 </div>
-
                 <div class="form-group">
                     <div class="col-sm-9">
                         <button type="submit" class="btn btn-primary btn-block">REGISTRACIJA</button>
                     </div>
                 </div>
-
                 <h2><span class="text-success" th:utext="${successMessage}"></span></h2>
-
             </form>
         </div>
     </div>
 </div>
-
 </body>
 </html>
