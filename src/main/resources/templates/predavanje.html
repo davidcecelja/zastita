@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Dodaj predavanje</title>
+    <!-- Dodajte linkove za Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-pzjw8y/4+HM5Q9g7332ExgDvuPjB5pZgxufnUpvq1O4XT9K5t6L5N7wWo+5gAwl7"
+        crossorigin="anonymous">
+</head>
+<body>
+    <div class="container">
+        <h1>Dodaj predavanje</h1>
+        <form th:action="@{/dodaj_predavanje}" th:object="${predavanje}" method="post">
+            <div class="form-group">
+                <label for="naziv">Naziv predavanja:</label>
+                <input type="text" id="naziv" class="form-control" th:field="*{naziv_predavanja}" />
+            </div>
+            <div class="form-group">
+            	<label for="opis">Opis predavanja:</label>
+        		<textarea id="opis" th:field="*{opis_predavanja}"></textarea>
+            </div>
+            <div class="form-group">
+            	<label for="pocetak">Početak predavanja:</label>
+        		<input type="datetime-local" id="pocetak" th:field="*{pocetak_predavanja}" />
+            </div>
+            <div class="form-group">
+            	<label for="zavrsetak">Završetak predavanja:</label>
+        		<input type="datetime-local" id="zavrsetak" th:field="*{zavrsetak_predavanja}" />
+            </div>
+            <div class="form-group">
+             	<label for="status">Status predavanja:</label>
+        		<input type="text" id="status" th:field="*{status_predavanja}" />
+            </div>
+            <div class="form-group">
+             	<label for="korisnik">Kreirao korisnik:</label>
+        		<select id="korisnik" th:field="*{kreirao_korisnik}">
+            		<option th:each="korisnik : ${korisnici}" th:value="${korisnik}" th:text="${korisnik.ime}" />
+        		</select>
+            </div>
+            <button type="submit" class="btn btn-primary">Spremi</button>
+        </form>
+    </div>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-pzjw8y/4+HM5Q9g7332ExgDvuPjB5pZgxufnUpvq1O4XT9K5t6L5N7wWo+5gAwl7"
+        crossorigin="anonymous"></script>
+</body>
+</html>

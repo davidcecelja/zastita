@@ -1,22 +1,58 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Polaganje ispita iz Zaštite na radu</title>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <meta charset="UTF-8">
+    <title>Uredi predavanje</title>
+    <!-- Dodajte linkove za Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-pzjw8y/4+HM5Q9g7332ExgDvuPjB5pZgxufnUpvq1O4XT9K5t6L5N7wWo+5gAwl7"
+        crossorigin="anonymous">
 </head>
 <body>
-<div align="center">
- <h1>ZAŠTTIA NA RADU</h1>
-<form th:action="@{/uredi_predavanje}" method="post" th:object="${predavanje}" class="form">
-  <input type="hidden" th:field="*{id}" />
-  <input type="text" th:field="*{naziv_predavanja}" class="form-control" placeholder="Naziv predavanja" />
-  <textarea th:field="*{opis_predavanja}" class="form-control" placeholder="Opis predavanja"></textarea>
-  <input type="datetime-local" th:field="*{pocetak_predavanja}" class="form-control" placeholder="Početak predavanja" />
-  <input type="datetime-local" th:field="*{zavrsetak_predavanja}" class="form-control" placeholder="Završetak predavanja" />
-  <input type="text" th:field="*{status_predavanja}" class="form-control" placeholder="Status predavanja" />
-  <input type="submit" value="Spremi promjene" class="btn btn-primary" />
-</form>
-</div>
+    <div class="container">
+        <h1>Uredi predavanje</h1>
+        <form th:action="@{/uredi_predavanje}" th:object="${predavanje}" method="post">
+            <input type="hidden" th:field="*{id}" />
+            
+            <div class="form-group">
+                <label for="naziv">Naziv predavanja:</label>
+                <input type="text" id="naziv" class="form-control" th:field="*{naziv_predavanja}" />
+            </div>
+            
+            <div class="form-group">
+                <label for="opis">Opis predavanja:</label>
+                <textarea id="opis" class="form-control" th:field="*{opis_predavanja}"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="pocetak">Početak predavanja:</label>
+                <input type="datetime-local" id="pocetak" class="form-control" th:field="*{pocetak_predavanja}" />
+            </div>
+            
+            <div class="form-group">
+                <label for="zavrsetak">Završetak predavanja:</label>
+                <input type="datetime-local" id="zavrsetak" class="form-control" th:field="*{zavrsetak_predavanja}" />
+            </div>
+            
+            <div class="form-group">
+                <label for="status">Status predavanja:</label>
+                <input type="text" id="status" class="form-control" th:field="*{status_predavanja}" />
+            </div>
+            
+            <div class="form-group">
+                <label for="korisnik">Kreirao korisnik:</label>
+                <select id="korisnik" class="form-control" th:field="*{kreirao_korisnik}">
+                    <option th:each="korisnik : ${korisnici}" th:value="${korisnik}" th:text="${korisnik.ime}" />
+                </select>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Spremi</button>
+        </form>
+    </div>
+    
+    <!-- Dodajte skriptu za Bootstrap JS, ako je potrebno -->
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-pzjw8y/4+HM5Q9g7332ExgDvuPjB5pZgxufnUpvq1O4XT9K5t6L5N7wWo+5gAwl7"
+        crossorigin="anonymous"></script>
 </body>
 </html>
