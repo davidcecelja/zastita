@@ -31,19 +31,14 @@
             <div class="form-group">
                 <label for="zavrsetak">Završetak predavanja:</label>
                 <input type="datetime-local" id="zavrsetak" class="form-control" th:field="*{zavrsetak_predavanja}" />
+            </div>         
+            <div class="form-group">
+             	<label for="status">Status predavanja:</label>
+        		<select id="status" th:field="*{status_predavanja}">
+            		<option th:each="status : ${statusi}" th:value="${status}" th:text="${status}" />
+        		</select>
             </div>
             
-            <div class="form-group">
-                <label for="status">Status predavanja:</label>
-                <input type="text" id="status" class="form-control" th:field="*{status_predavanja}" />
-            </div>
-            
-            <div class="form-group">
-                <label for="korisnik">Kreirao korisnik:</label>
-                <select id="korisnik" class="form-control" th:field="*{kreirao_korisnik}">
-                    <option th:each="korisnik : ${korisnici}" th:value="${korisnik}" th:text="${korisnik.ime}" />
-                </select>
-            </div>
             <button type="submit" class="btn btn-primary">Spremi</button>
         </form>
     </div>

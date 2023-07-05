@@ -1,7 +1,10 @@
 package hr.mev.zastita.model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
 
@@ -19,11 +22,13 @@ public class Predavanje {
 	@Column
 	private String opis_predavanja;
 	
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	@Column
-	private Date pocetak_predavanja;
+	private LocalDateTime pocetak_predavanja;
 
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	@Column
-	private Date zavrsetak_predavanja;
+	private LocalDateTime zavrsetak_predavanja;
 
 	@Column
 	private String status_predavanja;
@@ -38,8 +43,8 @@ public class Predavanje {
 		super();
 	}
 
-	public Predavanje(long id, String naziv_predavanja, String opis_predavanja, Date pocetak_predavanja,
-			Date zavrsetak_predavanja, String status_predavanja, List<Korisnik> prijavljeni_studenti,
+	public Predavanje(long id, String naziv_predavanja, String opis_predavanja, LocalDateTime pocetak_predavanja,
+			LocalDateTime zavrsetak_predavanja, String status_predavanja, List<Korisnik> prijavljeni_studenti,
 			Korisnik kreirao_korisnik) {
 		super();
 		this.id = id;
@@ -50,6 +55,11 @@ public class Predavanje {
 		this.status_predavanja = status_predavanja;
 		this.prijavljeni_studenti = prijavljeni_studenti;
 		this.kreirao_korisnik = kreirao_korisnik;
+	}
+	
+	public enum PredavanjeStatus {
+		NOVO,
+		ZAVRSENO
 	}
 
 	public long getId() {
@@ -76,19 +86,19 @@ public class Predavanje {
 		this.opis_predavanja = opis_predavanja;
 	}
 
-	public Date getPocetak_predavanja() {
+	public LocalDateTime getPocetak_predavanja() {
 		return pocetak_predavanja;
 	}
 
-	public void setPocetak_predavanja(Date pocetak_predavanja) {
+	public void setPocetak_predavanja(LocalDateTime pocetak_predavanja) {
 		this.pocetak_predavanja = pocetak_predavanja;
 	}
 
-	public Date getZavrsetak_predavanja() {
+	public LocalDateTime getZavrsetak_predavanja() {
 		return zavrsetak_predavanja;
 	}
 
-	public void setZavrsetak_predavanja(Date zavrsetak_predavanja) {
+	public void setZavrsetak_predavanja(LocalDateTime zavrsetak_predavanja) {
 		this.zavrsetak_predavanja = zavrsetak_predavanja;
 	}
 

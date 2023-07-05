@@ -43,6 +43,8 @@ public class KorisnikController {
         model.addAttribute("korisnici", new ArrayList<>());
         return "pocetna_nastavnik";
     }
+   
+    
 
     @GetMapping("/novi")
     public String noviKorisnikGet(Model model) {
@@ -80,13 +82,13 @@ public class KorisnikController {
     @GetMapping("/registracija")
     public String prikaziFormuRegistracije(Model model) {
         model.addAttribute("korisnik", new Korisnik());
-        return "korisnik";
+        return "registracija";
     }
 
     @PostMapping("/registracija")
     public String registracijaKorisnika(Korisnik korisnik) {
         service.registracijaKorisnika(korisnik);
-        return "redirect:/registracija";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")
@@ -125,7 +127,7 @@ public class KorisnikController {
         return "redirect:/login";
     }
     
-    @GetMapping("/potvrda")
+   /* @GetMapping("/potvrda")
     public ResponseEntity<byte[]> generateCertificate() throws IOException {
         // Dohvaćanje trenutno prijavljenog korisnika
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -157,6 +159,6 @@ public class KorisnikController {
         headers.setContentDispositionFormData("attachment", "certificate.pdf");
 
         return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
-    }
+    } */
 }
 

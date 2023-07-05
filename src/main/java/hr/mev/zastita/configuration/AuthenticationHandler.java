@@ -49,7 +49,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
     protected String determineTargetUrl(final Authentication authentication) {
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
-        roleTargetUrlMap.put("TEACHER", "/pocetna-nastavnik");
+        roleTargetUrlMap.put("NASTAVNIK", "/pocetna-nastavnik");
         roleTargetUrlMap.put("STUDENT", "/pocetna-student");
 
         final Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();

@@ -30,14 +30,11 @@
             </div>
             <div class="form-group">
              	<label for="status">Status predavanja:</label>
-        		<input type="text" id="status" th:field="*{status_predavanja}" />
-            </div>
-            <div class="form-group">
-             	<label for="korisnik">Kreirao korisnik:</label>
-        		<select id="korisnik" th:field="*{kreirao_korisnik}">
-            		<option th:each="korisnik : ${korisnici}" th:value="${korisnik}" th:text="${korisnik.ime}" />
+        		<select id="status" th:field="*{status_predavanja}">
+            		<option th:each="status : ${statusi}" th:value="${status}" th:text="${status}" />
         		</select>
             </div>
+         
             <button type="submit" class="btn btn-primary">Spremi</button>
         </form>
     </div>

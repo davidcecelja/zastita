@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,6 +19,9 @@ public class KorisnikServiceImpl implements KorisnikService{
 	
 	@Autowired
 	private KorisnikRepository repository;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Korisnik updateKorisnik(Korisnik korisnik) throws ResourceNotFoundException {
@@ -81,6 +85,19 @@ public class KorisnikServiceImpl implements KorisnikService{
 
 	@Override
 	public void registracijaKorisnika(Korisnik korisnik) {
+		korisnik.setEnabled(true);
+		korisnik.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
+		String email = korisnik.getEmail();
+		String uloga;
+		if (email.endsWith("@student.mev.hr")) {
+            uloga = "STUDENT";
+        } else if (email.endsWith("@mev.hr")) {
+            uloga = "NASTAVNIK";
+            }
+       else {
+            throw new IllegalStateException("Nepoznata uloga korisnika");
+        }
+		korisnik.setUloga(uloga);
 	    repository.save(korisnik);
 	}
 

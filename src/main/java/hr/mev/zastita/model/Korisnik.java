@@ -30,6 +30,16 @@ public class Korisnik {
 	@Column
 	private String uloga;
 	
+	private boolean enabled;
+	
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	public enum Uloga {
 	    STUDENT,
 	    NASTAVNIK

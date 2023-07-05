@@ -3,6 +3,8 @@ package hr.mev.zastita.controller;
 import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,13 +33,14 @@ public class PredavanjeController {
 	public String novoPredavanjeGet(Model model) {
 		Predavanje predavanje = new Predavanje();
 		model.addAttribute("predavanje", predavanje);
-		return "predavanja";
+		model.addAttribute("statusi", Predavanje.PredavanjeStatus.values()); // dohvacanje iz klase
+		return "predavanje";
 	}
 	
 	@PostMapping("/dodaj_predavanje")
 	public String dodajPredavanjePost(@ModelAttribute("predavanje") Predavanje predavanje) {
 		service.createPredavanje(predavanje);
-		return "redirect:/predavanja/"; 
+		return "redirect:/predavanje"; 
 	}
 	
 	@GetMapping("/uredi_predavanje/{id}")
@@ -45,18 +48,19 @@ public class PredavanjeController {
 		ModelAndView mav = new ModelAndView("uredi_predavanje");
 		Predavanje predavanje = service.getPredavanje(id);
 		mav.addObject("predavanje", predavanje);
+		mav.addObject("statusi", Predavanje.PredavanjeStatus.values()); 
 		return mav;
 	}
 	
 	@PostMapping("/uredi_predavanje")
 	public String spremiPredavanje(@ModelAttribute("predavanje") Predavanje predavanje) {
 		service.updatePredavanje(predavanje);
-		return "redirect:/predavanja/";
+		return "redirect:/predavanje";
 	}
 	
-	@GetMapping("/predavanje/brisi/{id}")
+	@GetMapping("/brisi_predavanje/{id}")
 	public String brisiPredavanje(@PathVariable(name = "id") long id) {
 		service.deletePredavanje(id);
-		return "redirect:/predavanja/";
+		return "redirect:/predavanje";
 	}
 }

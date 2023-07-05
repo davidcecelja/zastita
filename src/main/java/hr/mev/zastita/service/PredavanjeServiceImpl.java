@@ -3,6 +3,9 @@ package hr.mev.zastita.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,10 +18,18 @@ import hr.mev.zastita.repository.PredavanjeRepository;
 @Transactional
 public class PredavanjeServiceImpl implements PredavanjeService{
 	
+	@Autowired
 	private PredavanjeRepository predavanjeRepository;
+	
+	@Autowired
+	private KorisnikService korisnikService;
 
 	@Override
 	public Predavanje createPredavanje(Predavanje predavanje) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailKorisnika = auth.getName();
+		Korisnik trenutniKorisnik = korisnikService.findByEmail(emailKorisnika);
+		predavanje.setKreirao_korisnik(trenutniKorisnik);
 		return predavanjeRepository.save(predavanje);
 	}
 
