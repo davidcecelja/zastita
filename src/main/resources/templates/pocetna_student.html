@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Polaganje ispita iz Zaštite na radu</title>
+    <title>Ispit - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <div class="text-center">
-            <h1>IsZAŠTTIA NA RADU</h1>
+            <h1>Ispit - Zaštita na radu</h1>
         </div>
         <table class="table">
             <thead class="thead-dark">
@@ -30,15 +30,17 @@
                     <td th:text="${predavanje.pocetak_predavanja}"></td>
                     <td th:text="${predavanje.zavrsetak_predavanja}"></td>
                     <td th:text="${predavanje.status_predavanja}"></td>  
-                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVI SE</a> </td>
-                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI SE</a> </td>
-                       
+                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVA</a> </td>
+                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVA</a> </td>                      
                 </tr>
             </tbody>
         </table>
         <!-- Ispis potvrde -->
-        <a href="/potvrda">Preuzmi potvrdu</a>
+        <a th:href = "@{/potvrda}" class="btn btn-success">POTVRDA</a>
     </div>
 </body>
 </html>
  
+ 
+ 
+        

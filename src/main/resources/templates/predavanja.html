@@ -2,13 +2,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Polaganje ispita iz Zaštite na radu</title>
+    <title>Ispit - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
     <div class="container">
         <div class="text-center">
-            <h1>ISPIT - ZAŠTITA NA RADU</h1>
+            <h1>Ispit - Zaštita na radu</h1>
         </div>
          <!-- Dodavanje predavanja -->
          <a th:href="@{/dodaj_predavanje}" class="btn btn-primary">Dodaj predavanje</a>
@@ -33,9 +33,9 @@
                     <td th:text="${predavanje.zavrsetak_predavanja}"></td>
                     <td th:text="${predavanje.status_predavanja}"></td>
                     <td>
-                        <!-- Uređivanje postojećeg predavanja -->
+                        
                         <a th:href="@{/uredi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-primary">Uredi</a>
-                        <!-- Brisanje predavanja -->
+                     
                         <a th:href="@{/brisi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-danger">Izbriši</a>
                     </td>
                 </tr>

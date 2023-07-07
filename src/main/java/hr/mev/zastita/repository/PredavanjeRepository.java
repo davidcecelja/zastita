@@ -11,5 +11,6 @@ public interface PredavanjeRepository extends JpaRepository<Predavanje, Long>{
 
 	@Query("SELECT p FROM Predavanje p WHERE p.status_predavanja = ?1")
 	Iterable<Predavanje> findAllByStatusPredavanja(String status);
-
+	
+	
 }

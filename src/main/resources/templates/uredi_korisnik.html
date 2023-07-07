@@ -1,0 +1,30 @@
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Ispit - Zaštita na radu</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4">Uredi korisnika</h1>
+        <form th:action="@{/registracija}" method="post" th:object="${korisnik}" class="mt-4">
+            <div class="form-group">
+                <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="email" th:field="*{email}" placeholder="Email" class="form-control" />
+            </div>
+            <div class="form-group">
+                <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
+            </div>
+            <button type="submit" class="btn btn-primary">Registriraj se</button>
+        </form>
+    </div>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+

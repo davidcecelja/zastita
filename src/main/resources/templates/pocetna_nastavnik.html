@@ -6,16 +6,35 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="container">
-        <div class="text-center">
-            <h1>ISPIT - ZAŠTITA NA RADU</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Nastavnik</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registracija}">Registracija</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/uredi_korisnik}">Uredi korisnika</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/brisi_korisnik}">Brisanje korisnika</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/predavanje}">Predavanja</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/prijave}">Prijave</a>
+                </li>
+            </ul>
         </div>
-                
-         <form th:action="@{/predavanje}" method="get">
-            <button class="btn btn-md btn-warning btn-block" type="submit">Upravljanje Predavanjima</button>
-        </form>
-        
-        <!-- Prikaz popisa korisnika -->
+    </nav>
+
+    
+<!-- Prikaz popisa korisnika -->
         <table class="table">
             <thead class="thead-dark">
                 <tr>
@@ -25,8 +44,7 @@
                 </tr>
             </thead>           
         </table>
-
-        <!-- Dodavanje novog korisnika -->
+		<!-- Dodavanje novog korisnika -->
         <form th:action="@{/registracija}" method="post" th:object="${korisnik}" class="form">
             <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
             <input type="text" th:field="*{prezime}" placeholder="Prezime" class="form-control" />
@@ -47,6 +65,19 @@
 
         <!-- Brisanje korisnika -->
         <a th:href="@{/korisnik/brisi/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
-    </div>
+    
+       
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+        
+
+        
+
+       
+
+    
+
+
+

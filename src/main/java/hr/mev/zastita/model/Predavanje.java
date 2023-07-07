@@ -1,7 +1,6 @@
 package hr.mev.zastita.model;
 
 import java.time.LocalDateTime;
-import java.util.Date;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -23,12 +22,12 @@ public class Predavanje {
 	@Column
 	private String opis_predavanja;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	@Column
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	private LocalDateTime pocetak_predavanja;
 
-	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	@Column
+	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	private LocalDateTime zavrsetak_predavanja;
 
 	@Column

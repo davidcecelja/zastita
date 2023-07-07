@@ -33,7 +33,7 @@ public class KorisnikController {
     
     @Autowired
     private PredavanjeService predavanjeService;
-
+    
     @GetMapping("/pocetna-student")
     public String pocetnaStranicaStudent(Model model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -46,14 +46,12 @@ public class KorisnikController {
     }
 
     @GetMapping("/pocetna-nastavnik")
-    public String pocetnaStranicaNastavnik(Model model) {
+    public String pocetnaStranicaNastavnik(Model model) {	
         model.addAttribute("korisnik", new Korisnik());
         model.addAttribute("korisnici", new ArrayList<>());
         return "pocetna_nastavnik";
     }
    
-    
-
     @GetMapping("/novi")
     public String noviKorisnikGet(Model model) {
         Korisnik korisnik = new Korisnik();
@@ -84,7 +82,7 @@ public class KorisnikController {
     @GetMapping("/korisnik/brisi/{id}")
     public String brisiKorisnik(@PathVariable(name = "id") long id) {
         service.deleteKorisnik(id);
-        return "redirect:/login/";
+        return "redirect:/pocetna_nastavnik/";
     }
 
     @GetMapping("/registracija")
@@ -96,7 +94,7 @@ public class KorisnikController {
     @PostMapping("/registracija")
     public String registracijaKorisnika(Korisnik korisnik) {
         service.registracijaKorisnika(korisnik);
-        return "redirect:/login";
+        return "redirect:/pocetna_nastavnik";
     }
 
     @GetMapping("/login")
