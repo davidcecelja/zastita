@@ -29,12 +29,15 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity httpSecurity)
             throws Exception {
         httpSecurity.authorizeHttpRequests()
-                .requestMatchers("/registracija")
+                .requestMatchers("/registracija", "/logout")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
-                .formLogin()
+                .formLogin() 
+               
+                .loginPage("/login")
+                .permitAll()
                 .loginProcessingUrl("/login")
                 .successHandler(myAuthenticationSuccessHandler());
 

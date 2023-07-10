@@ -45,7 +45,7 @@ public class Prijava {
 		this.ocjena = ocjena;
 		this.polozeno = polozeno;
 	}
-
+	
 	public long getId() {
 		return id;
 	}

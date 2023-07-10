@@ -125,6 +125,13 @@ public class Predavanje {
 	public void setKreirao_korisnik(Korisnik kreirao_korisnik) {
 		this.kreirao_korisnik = kreirao_korisnik;
 	}
+
+	@Override
+	public String toString() {
+		return "Predavanje [id=" + id + ", naziv_predavanja=" + naziv_predavanja + ", opis_predavanja="
+				+ opis_predavanja + ", pocetak_predavanja=" + pocetak_predavanja + ", zavrsetak_predavanja="
+				+ zavrsetak_predavanja + ", status_predavanja=" + status_predavanja + "]";
+	}
 }
 
 

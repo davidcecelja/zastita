@@ -25,6 +25,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
+    	System.out.println("Uspojesan login");
         handle(request, response, authentication);
         clearAuthenticationAttributes(request);
     }
@@ -47,6 +48,7 @@ public class AuthenticationHandler implements AuthenticationSuccessHandler {
     }
 
     protected String determineTargetUrl(final Authentication authentication) {
+    	System.out.println("OVDJE SMO");
 
         Map<String, String> roleTargetUrlMap = new HashMap<>();
         roleTargetUrlMap.put("NASTAVNIK", "/pocetna-nastavnik");

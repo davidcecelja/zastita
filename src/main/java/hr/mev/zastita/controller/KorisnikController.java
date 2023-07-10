@@ -3,13 +3,14 @@ package hr.mev.zastita.controller;
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
 import hr.mev.zastita.service.PredavanjeService;
-
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -18,12 +19,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.io.OutputStream;
+
 
 @Controller
 public class KorisnikController {
@@ -47,8 +47,7 @@ public class KorisnikController {
 
     @GetMapping("/pocetna-nastavnik")
     public String pocetnaStranicaNastavnik(Model model) {	
-        model.addAttribute("korisnik", new Korisnik());
-        model.addAttribute("korisnici", new ArrayList<>());
+        model.addAttribute("korisnici", service.getAllKorisnik());
         return "pocetna_nastavnik";
     }
    
@@ -67,22 +66,22 @@ public class KorisnikController {
 
     @GetMapping("/uredi_korisnik/{id}")
     public ModelAndView urediKorisnikGet(@PathVariable("id") long id) {
-        ModelAndView mav = new ModelAndView("uredi_korisnika");
+        ModelAndView mav = new ModelAndView("uredi_korisnik");
         Korisnik korisnik = service.getKorisnik(id);
         mav.addObject("korisnik", korisnik);
         return mav;
     }
 
-    @PostMapping("/uredi_korisnik")
+    @PostMapping("/uredi-korisnik")
     public String spremiKorisnika(@ModelAttribute("korisnik") Korisnik korisnik) {
         service.updateKorisnik(korisnik);
-        return "redirect:/login/";
+        return "redirect:/pocetna-nastavnik";
     }
 
-    @GetMapping("/korisnik/brisi/{id}")
+    @GetMapping("/brisi_korisnik/{id}")
     public String brisiKorisnik(@PathVariable(name = "id") long id) {
         service.deleteKorisnik(id);
-        return "redirect:/pocetna_nastavnik/";
+        return "redirect:/pocetna-nastavnik";
     }
 
     @GetMapping("/registracija")
@@ -102,47 +101,20 @@ public class KorisnikController {
         return "login";
     }
 
-    @PostMapping("/login")
-    public String prijavaKorisnika(@RequestBody Korisnik korisnik, RedirectAttributes redirectAttributes) {
-        try {
-            String email = korisnik.getEmail();
-            String lozinka = korisnik.getLozinka();
-            String uloga = service.prijavaKorisnika(email, lozinka);
-            if (email.endsWith("@student.mev.hr")) {
-	            uloga = "STUDENT";
-	            return "redirect:/pocetna_student";
-	        } else if (email.endsWith("@mev.hr")) {
-	            uloga = "NASTAVNIK";
-	            }
-            if (uloga.equals("STUDENT")) {
-                return "redirect:/pocetna_student";
-            } else if (uloga.equals("NASTAVNIK")) {
-                return "redirect:/pocetna_nastavnik";
-            } else {
-                throw new IllegalStateException("Nepoznata uloga korisnika");
-            }
-        } catch (BadCredentialsException e) {
-            redirectAttributes.addFlashAttribute("errorMessage", "Pogrešna e-mail adresa ili lozinka");
-            return "redirect:/login";
-        }
-    }
-
     @GetMapping("/odjava")
     public String odjavaKorisnika() {
         service.odjavaKorisnika();
         return "redirect:/login";
     }
     
-   /* @GetMapping("/potvrda")
-    public ResponseEntity<byte[]> generateCertificate() throws IOException {
-        // Dohvaćanje trenutno prijavljenog korisnika
+   @GetMapping("/potvrda")
+    public void generateCertificate(HttpServletRequest request, HttpServletResponse response) throws IOException {
+      
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
 
-        // Generiranje sadržaja potvrde
-        String certificateContent = "Ovo je potvrda da je korisnik " + username + " položio ispit iz Zaštite na radu.";
+        String certificateContent = "Ovo je potvrda da je korisnik " + username + " poloĹľio ispit iz ZaĹˇtite na radu.";
 
-        // Generiranje PDF-a
         PDDocument document = new PDDocument();
         PDPage page = new PDPage();
         document.addPage(page);
@@ -153,18 +125,23 @@ public class KorisnikController {
         contentStream.showText(certificateContent);
         contentStream.endText();
         contentStream.close();
-
-        // Pretvaranje PDF-a u niz bajtova
+     
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         document.save(baos);
         document.close();
-
-        // Postavljanje zaglavlja za preuzimanje PDF-a
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(MediaType.APPLICATION_PDF);
-        headers.setContentDispositionFormData("attachment", "certificate.pdf");
-
-        return new ResponseEntity<>(baos.toByteArray(), headers, HttpStatus.OK);
-    } */
+        
+        byte[] b = baos.toByteArray();
+        
+        OutputStream os = response.getOutputStream();
+        
+        try {
+        	os.write(b, 0, b.length);
+        }catch (Exception e) {
+        	
+        }
+        
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        response.setHeader("Content-Disposition", "attachment; filename=potvrda.pdf");
+    } 
 }
 

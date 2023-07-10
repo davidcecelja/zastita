@@ -27,24 +27,32 @@ public class PrijavaController {
 		return "prijave";
 	}
 	
+	@GetMapping("/prijave/{id}")
+	public String otvoriStanicuSPrijavama(@PathVariable("id") long id, Model model) {
+	model.addAttribute("prijave", service.getPrijavaPoPredavanjeId(id));
+	return "prijave";
+		
+	}
+	
 	@GetMapping("/dodaj_prijavu/{id}")
 	public String novaPrijavaGet(@PathVariable("id") Long idPredavanja, Model model) {
 		service.createPrijava(idPredavanja);
 		return "redirect:/pocetna-student";
 	}
 	
-	@GetMapping("/uredi_prijavu/{id}")
+	@GetMapping("/uredi_prijava/{id}")
 	public ModelAndView urediPrijavuGet(@PathVariable("id") long id) {
-		ModelAndView mav = new ModelAndView("uredi_prijavu");
+		ModelAndView mav = new ModelAndView("uredi_prijava");
 		Prijava prijava = service.getPrijava(id);
 		mav.addObject("prijava", prijava);
 		return mav;
 	}
 	
-	@PostMapping("/uredi_prijavu")
+	@PostMapping("/uredi_prijava")
 	public String spremiPrijavu(@ModelAttribute("prijava") Prijava prijava) {
 		service.updatePrijava(prijava);
-		return "redirect:/prijave/";
+		System.out.println("PRIJAVA " + prijava.getPredavanje());
+		return "redirect:/prijave/" + prijava.getPredavanje().getId();
 	}
 	
 	@GetMapping("/brisi_prijavu/{id}")

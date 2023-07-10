@@ -20,5 +20,4 @@ public interface KorisnikService {
 
 	void odjavaKorisnika();
 
-	String prijavaKorisnika(String email, String lozinka);
 }

@@ -1,6 +1,7 @@
 package hr.mev.zastita.service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,20 +47,8 @@ public class PrijavaServiceImpl implements PrijavaService{
 	}
 
 	@Override
-	public Prijava updatePrijava(Prijava prijava) throws ResourceNotFoundException{
-		Optional<Prijava> data = this.repository.findById(prijava.getId());
-		if(data.isPresent()) {
-			Prijava prijavaUpdate = data.get();
-			prijavaUpdate.setStudent(prijava.getStudent());
-			prijavaUpdate.setPredavanje(prijava.getPredavanje());
-			prijavaUpdate.setDatumPrijave(prijava.getDatumPrijave());
-			prijavaUpdate.setOcjena(prijava.getOcjena());
-			prijavaUpdate.setPolozeno(prijava.isPolozeno());
-			repository.save(prijavaUpdate);
-			return prijavaUpdate;
-		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen : " + prijava.getId());
-		}
+	public void updatePrijava(Prijava prijava) throws ResourceNotFoundException{
+		repository.ocijeniPrijavu(prijava.getOcjena(), prijava.isPolozeno(), prijava.getId());
 	}
 
 	@Override
@@ -81,7 +70,7 @@ public class PrijavaServiceImpl implements PrijavaService{
 		if(data.isPresent()) {
 			this.repository.delete(data.get());
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen.");
+			throw new ResourceNotFoundException("Zapis nije pronaÄ‘en.");
 		}
 	}
 
@@ -104,5 +93,10 @@ public class PrijavaServiceImpl implements PrijavaService{
 		this.repository.deleteById(prijava.getId());
 		
 		System.out.println("prijava obrisana");
+	}
+
+	@Override
+	public List<Prijava> getPrijavaPoPredavanjeId(long predavanjeId) {
+		return repository.findByPredavanje_id(predavanjeId);
 	}
 }

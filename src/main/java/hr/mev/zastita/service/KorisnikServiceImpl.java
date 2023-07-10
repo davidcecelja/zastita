@@ -3,7 +3,6 @@ package hr.mev.zastita.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -31,13 +30,13 @@ public class KorisnikServiceImpl implements KorisnikService{
 			korisnikUpdate.setIme(korisnik.getIme());
 			korisnikUpdate.setPrezime(korisnik.getPrezime());
 			korisnikUpdate.setEmail(korisnik.getEmail());
-			korisnikUpdate.setLozinka(korisnik.getLozinka());
+			korisnikUpdate.setLozinka(passwordEncoder.encode(korisnik.getLozinka()));
 			korisnikUpdate.setUloga(korisnik.getUloga());
 			korisnikUpdate.setPredavanja(korisnik.getPredavanja());
 			repository.save(korisnikUpdate);
 			return korisnikUpdate;
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen : " + korisnik.getId());
+			throw new ResourceNotFoundException("Zapis nije pronaÄ‘en : " + korisnik.getId());
 		}		
 	}
 
@@ -60,7 +59,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		if(data.isPresent()) {
 			this.repository.delete(data.get());
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen.");
+			throw new ResourceNotFoundException("Zapis nije pronaÄ‘en.");
 		}
 	}
 
@@ -106,20 +105,4 @@ public class KorisnikServiceImpl implements KorisnikService{
 		SecurityContextHolder.clearContext();
 	}
 
-	@Override
-	public String prijavaKorisnika(String email, String lozinka) {
-		 Korisnik korisnik = repository.findByEmail(email);
-		    if (korisnik != null && lozinka.equals(korisnik.getLozinka())) {
-		        String uloga = null;
-		        
-		        if (email.endsWith("@student.mev.hr")) {
-		            uloga = "student";
-		            return "redirect:/pocetna_student";
-		        } else if (email.endsWith("@mev.hr")) {
-		            uloga = "nastavnik";
-		            return "redirect:/pocetna_nastavnik";
-		        }
-		    }
-		    throw new BadCredentialsException("PogreĹˇna e-mail adresa ili lozinka");
-	}
 }
