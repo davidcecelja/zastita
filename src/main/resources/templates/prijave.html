@@ -29,7 +29,7 @@
                     <td th:text="${prijava.student.ime} + ' ' + ${prijava.student.prezime}"></td>
                     <td th:text="${prijava.datumPrijave}"></td>
                     <td th:text="${prijava.ocjena}"></td>
-                    <td th:text="${prijava.polozeno} ? 'DA' : 'NE'"></td>
+                    <td th:text="${prijava.polozeno} ? 'Da' : 'Ne'"></td>
                     <td>
                         <a th:href="@{/uredi_prijava/{id}(id=${prijava.id})}" class="btn btn-danger">Ocijeni</a>
                     </td>

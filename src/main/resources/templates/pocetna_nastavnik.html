@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Ispit - Zaštita na radu</title>
+    <title>Polaganje ispita iz Zaštite na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -17,30 +17,52 @@
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/registracija}">Registracija</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/uredi_korisnik}">Uredi korisnika</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/brisi_korisnik}">Brisanje korisnika</a>
-                </li>
+         
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/predavanje}">Predavanja</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/prijave}">Prijave</a>
+                
+                 <li class="nav-item">
+                    <a class="nav-link" th:href="@{/logout}">Odjava</a>
                 </li>
+              
             </ul>
         </div>
     </nav>
 
     
 <!-- Prikaz popisa korisnika -->
-        
-    
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+					<th>ID</th>
+                    <th>Ime</th>
+                    <th>Prezime</th>
+                    <th>Email</th>
+                    <th>Akcije</th>
+                </tr>
+            </thead>  
+            <tbody>
+                <tr th:each="korisnik : ${korisnici}">
+                    <td th:text="${korisnik.id}"></td>
+                    <td th:text="${korisnik.ime}"></td>
+                    <td th:text="${korisnik.prezime}"></td>
+                    <td th:text="${korisnik.email}"></td>
+            
+                    <td>
+                        <a th:href="@{/uredi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-primary">Uredi</a>
+                        <a th:href="@{/brisi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
+                    </td>
+                </tr>
+            </tbody>         
+        </table>
+
        
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
+
+        
 
         
 

@@ -12,21 +12,20 @@
         </div>
         <form th:action="@{/uredi_prijava}" method="post" th:object="${prijava}" class="form">
             <input type="hidden" th:field="*{id}" />
+                       <input type="hidden" th:field="*{predavanje}" />
+            <input type="hidden" th:field="*{student}" />
             <div class="form-group">
                 <label for="predavanje">Predavanje:</label>
-                <select th:field="*{predavanje}" class="form-control" id="predavanje">
-                    <option th:each="predavanje : ${predavanja}" th:value="${predavanje}" th:text="${predavanje.naziv_predavanja}"></option>
-                </select>
+                <p th:text="*{predavanje.naziv_predavanja}"/>
             </div>
-            <div class="form-group">
+             <div class="form-group">
                 <label for="student">Student:</label>
-                <select th:field="*{student}" class="form-control" id="student">
-                    <option th:each="student : ${studenti}" th:value="${student}" th:text="${student.ime} + ' ' + ${student.prezime}"></option>
-                </select>
+                <p th:text="*{student.ime + ' ' + student.prezime}"></p>
             </div>
+           
             <div class="form-group">
                 <label for="datumPrijave">Datum prijave:</label>
-                <input type="date" th:field="*{datumPrijave}" class="form-control" id="datumPrijave" />
+                <p th:text="*{datumPrijave}" />
             </div>
             <div class="form-group">
                 <label for="ocjena">Ocjena:</label>

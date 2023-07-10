@@ -13,17 +13,14 @@
         <form th:action="@{/login}" method="post" class="form-signin">
             <h3 class="form-signin-heading">Dobrodošli</h3>
             <br/>
-            <input type="text" id="email" name="email" th:placeholder="Email" class="form-control" /> <br/>
+            <input type="text" id="username" name="username" th:placeholder="Email" class="form-control" /> <br/>
             <input type="password" id="password" name="password" th:placeholder="Lozinka" class="form-control" /> <br/>
 
-            <div class="text-center" th:if="${param.error}">
-                <p style="font-size: 20; color: #FF1C19;">Molim vas da provjerite vaš email ili lozinku</p>
-            </div>
+        
             <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="submit">PRIJAVA</button>
         </form>
        <a href="@{/registracija}">Registracija</a>
     </div>
 </body>
 </html>
-
 

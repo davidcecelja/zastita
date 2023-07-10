@@ -7,7 +7,10 @@
 <body>
     <div class="container">
         <h1 class="mt-4">Uredi korisnika</h1>
-        <form th:action="@{/registracija}" method="post" th:object="${korisnik}" class="mt-4">
+        <form th:action="@{/uredi-korisnik}" method="post" th:object="${korisnik}" class="mt-4">
+			<input type="hidden" th:field="*{id}" />
+			<input type="hidden" th:field="*{uloga}" />
+
             <div class="form-group">
                 <input type="text" th:field="*{ime}" placeholder="Ime" class="form-control" />
             </div>
@@ -20,11 +23,10 @@
             <div class="form-group">
                 <input type="password" th:field="*{lozinka}" placeholder="Lozinka" class="form-control" />
             </div>
-            <button type="submit" class="btn btn-primary">Registriraj se</button>
+            <button type="submit" class="btn btn-primary">Spremi</button>
         </form>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
-
 
