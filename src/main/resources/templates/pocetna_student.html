@@ -7,6 +7,7 @@
 </head>
 <body>
     <div class="container">
+    	<a th:href="@{/odjava}" class="btn btn-info">Odjava</a>
         <div class="text-center">
             <h1>Ispit - Zaštita na radu</h1>
         </div>
@@ -30,8 +31,8 @@
                     <td th:text="${predavanje.pocetak_predavanja}"></td>
                     <td th:text="${predavanje.zavrsetak_predavanja}"></td>
                     <td th:text="${predavanje.status_predavanja}"></td>  
-                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVA</a> </td>
-                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVA</a> </td>                      
+                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVI ISPIT</a> </td>
+                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI ISPIT</a> </td>                      
                 </tr>
             </tbody>
         </table>

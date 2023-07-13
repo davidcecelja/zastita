@@ -37,6 +37,18 @@
         </form>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+		function validateForm() {
+    		var pocetak = new Date(document.getElementById("pocetak").value);
+    		var zavrsetak = new Date(document.getElementById("zavrsetak").value);
+
+    		if (pocetak >= zavrsetak) {
+        		alert("Pocetak predavanja ne može biti nakon završetka predavanja.");
+        		return false;
+    			}
+    		return true;
+			}
+</script>
 </body>
 </html>
 

@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Polaganje ispita iz Zaštite na radu</title>
+    <title>Ispit - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
 </head>
 <body>
@@ -13,13 +13,18 @@
         <form th:action="@{/login}" method="post" class="form-signin">
             <h3 class="form-signin-heading">Dobrodošli</h3>
             <br/>
-            <input type="text" id="username" name="username" th:placeholder="Email" class="form-control" /> <br/>
-            <input type="password" id="password" name="password" th:placeholder="Lozinka" class="form-control" /> <br/>
+            <input type="text" id="username" name="username" th:placeholder="Email" class="form-control" required/> <br/>
+            <input type="password" id="password" name="password" th:placeholder="Lozinka" class="form-control" required/> <br/>
 
         
             <button class="btn btn-lg btn-primary btn-block" name="Submit" value="Login" type="submit">PRIJAVA</button>
         </form>
-       <a href="@{/registracija}">Registracija</a>
+       	<div th:if="${param.error}">
+        	<p class="alert alert-danger">Neispravni korisnički podaci!</p>
+    	</div>
+    	<div th:if="${param.logout}">
+        	<p class="alert alert-success">Uspješno ste se prijavili!</p>
+    	</div>
     </div>
 </body>
 </html>

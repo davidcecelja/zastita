@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name="predavanje")
@@ -17,9 +18,11 @@ public class Predavanje {
 	private long id;
 	
 	@Column
+	@NotEmpty(message="Upišite naziv predavanja!")
 	private String naziv_predavanja;
 
 	@Column
+	@NotEmpty(message="Upišite opis predavanja!")
 	private String opis_predavanja;
 	
 	@Column
@@ -132,6 +135,14 @@ public class Predavanje {
 				+ opis_predavanja + ", pocetak_predavanja=" + pocetak_predavanja + ", zavrsetak_predavanja="
 				+ zavrsetak_predavanja + ", status_predavanja=" + status_predavanja + "]";
 	}
+	
+	@PrePersist
+    @PreUpdate
+    private void validateDates() {
+        if (pocetak_predavanja != null && zavrsetak_predavanja != null && pocetak_predavanja.isAfter(zavrsetak_predavanja)) {
+            throw new IllegalArgumentException("Početak predavanja ne može biti prije završetka predavanja!");
+        }
+    }
 }
 
 

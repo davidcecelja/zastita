@@ -4,7 +4,6 @@
     <meta charset="utf-8" />
     <title>Ispit - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <style> body {background-image: url("images/mev.jpg");}</style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -14,13 +13,18 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">              
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registracija}">Registracija</a>
+                </li>
+         
                 <li class="nav-item">
                     <a class="nav-link" th:href="@{/predavanje}">Predavanja</a>
-                </li>                
+                </li>
+                
                  <li class="nav-item">
                     <a class="nav-link" th:href="@{/odjava}">Odjava</a>                   
-                </li>            
+                </li>              
             </ul>
         </div>
     </nav>
@@ -30,7 +34,8 @@
 					<th>ID</th>
                     <th>Ime</th>
                     <th>Prezime</th>
-                    <th>Email</th>                    
+                    <th>Email</th>
+                    <th>Akcije</th>
                 </tr>
             </thead>  
             <tbody>
@@ -38,10 +43,16 @@
                     <td th:text="${korisnik.id}"></td>
                     <td th:text="${korisnik.ime}"></td>
                     <td th:text="${korisnik.prezime}"></td>
-                    <td th:text="${korisnik.email}"></td>                              
+                    <td th:text="${korisnik.email}"></td>
+            
+                    <td>
+                        <a th:href="@{/uredi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-primary">Uredi</a>
+                        <a th:href="@{/brisi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
+                    </td>
                 </tr>
             </tbody>         
-        </table>      
+        </table>
+     
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>

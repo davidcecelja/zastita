@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
 
 @Table(name="korisnik")
 @Entity
@@ -14,15 +15,19 @@ public class Korisnik {
 	private long id;
 	
 	@Column
+	@NotEmpty(message="Upišite ime!")
 	private String ime;
 	
 	@Column
+	@NotEmpty(message="Upišite prezime!")
 	private String prezime;
 	
 	@Column
+	@NotEmpty(message="Upišite lozinku!")
 	private String lozinka;
 
 	@Column
+	@NotEmpty(message="Upišite email!")
 	private String email;
 	
 	@ManyToMany
