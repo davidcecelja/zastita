@@ -2,31 +2,32 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Ispit - Zaštita na radu</title>
+    <title>MEV - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style> 
+    	body {background-image: url("images/mev.jpg");}
+    	.table tbody tr td {color: white;}
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Nastavnik</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    	<a class="navbar-brand" href="#">Administrator</a>
+    	<div class="container">	      	
+        	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/registracija}">Registracija</a>
-                </li>
-         
-                <li class="nav-item">
-                    <a class="nav-link" th:href="@{/predavanje}">Predavanja</a>
-                </li>
-                
-                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/odjava}">Odjava</a>                   
-                </li>              
-            </ul>
-        </div>
+            	<span class="navbar-toggler-icon"></span>
+        	</button>
+        	<div class="collapse navbar-collapse" id="navbarNav">
+            	<ul class="navbar-nav">              
+                 	<li class="nav-item">
+                    	<a class="nav-link" th:href="@{/odjava}">Odjava</a>                   
+                	</li>              
+            	</ul>
+        	</div>
+        	<div class="ml-auto">
+            	<img src="images/logo.jpg" alt="Logotip" width="60" height="60" class="d-inline-block align-top">
+        	</div>
+    	</div>
     </nav>
         <table class="table table-striped">
             <thead class="thead-light">
@@ -35,6 +36,7 @@
                     <th>Ime</th>
                     <th>Prezime</th>
                     <th>Email</th>
+                    <th>Uloga</th>
                     <th>Akcije</th>
                 </tr>
             </thead>  
@@ -44,7 +46,7 @@
                     <td th:text="${korisnik.ime}"></td>
                     <td th:text="${korisnik.prezime}"></td>
                     <td th:text="${korisnik.email}"></td>
-            
+            		<td th:text="${korisnik.uloga}"></td>
                     <td>
                         <a th:href="@{/uredi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-primary">Uredi</a>
                         <a th:href="@{/brisi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
@@ -52,7 +54,13 @@
                 </tr>
             </tbody>         
         </table>
-     
+    <footer class="text-center text-white fixed-bottom" style="background-color: #3e2723">
+  		<div class="container p-4"></div> 
+  		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+   					 © 2023 Copyright:
+    		<a class="text-white" href="https://www.mev.hr/">MEV</a>
+  		</div>
+	</footer>   
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>

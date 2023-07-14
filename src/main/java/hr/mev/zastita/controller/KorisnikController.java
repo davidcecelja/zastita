@@ -50,12 +50,18 @@ public class KorisnikController {
         model.addAttribute("korisnici", service.getAllKorisnik());
         return "pocetna_nastavnik";
     }
+    
+    @GetMapping("/pocetna-admin")
+    public String pocetnaStranicaAdmin(Model model) {
+    	model.addAttribute("korisnici", service.getAllKorisnik());
+    	return "pocetna_admin";
+    }
    
     @GetMapping("/novi")
     public String noviKorisnikGet(Model model) {
         Korisnik korisnik = new Korisnik();
         model.addAttribute("korisnik", korisnik);
-        return "pocetna_nastavnik";
+        return "pocetna_admin";
     }
 
     @PostMapping("/novi")
@@ -75,13 +81,13 @@ public class KorisnikController {
     @PostMapping("/uredi-korisnik")
     public String spremiKorisnika(@ModelAttribute("korisnik") Korisnik korisnik) {
         service.updateKorisnik(korisnik);
-        return "redirect:/pocetna-nastavnik";
+        return "redirect:/pocetna-admin";
     }
 
     @GetMapping("/brisi_korisnik/{id}")
     public String brisiKorisnik(@PathVariable(name = "id") long id) {
         service.deleteKorisnik(id);
-        return "redirect:/pocetna-nastavnik";
+        return "redirect:/pocetna-admin";
     }
 
     @GetMapping("/registracija")
@@ -93,7 +99,7 @@ public class KorisnikController {
     @PostMapping("/registracija")
     public String registracijaKorisnika(Korisnik korisnik) {
         service.registracijaKorisnika(korisnik);
-        return "redirect:/pocetna_nastavnik";
+        return "redirect:/login";
     }
 
     @GetMapping("/login")

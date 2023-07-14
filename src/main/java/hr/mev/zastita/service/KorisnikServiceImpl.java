@@ -59,7 +59,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 		if(data.isPresent()) {
 			this.repository.delete(data.get());
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronaÄ‘en.");
+			throw new ResourceNotFoundException("Zapis nije pronađen.");
 		}
 	}
 
@@ -92,7 +92,9 @@ public class KorisnikServiceImpl implements KorisnikService{
             uloga = "STUDENT";
         } else if (email.endsWith("@mev.hr")) {
             uloga = "NASTAVNIK";
-            }
+        } else if(email.endsWith("@admin.mev.hr")) {
+        	uloga = "ADMIN";
+        }
        else {
             throw new IllegalStateException("Nepoznata uloga korisnika");
         }
