@@ -36,7 +36,7 @@ public class KorisnikServiceImpl implements KorisnikService{
 			repository.save(korisnikUpdate);
 			return korisnikUpdate;
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronaÄ‘en : " + korisnik.getId());
+			throw new ResourceNotFoundException("Zapis nije pronađen : " + korisnik.getId());
 		}		
 	}
 

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 
 @Table(name="korisnik")
@@ -28,6 +29,7 @@ public class Korisnik {
 
 	@Column
 	@NotEmpty(message="Upišite email!")
+	@Email(message = "Nevažeća email adresa")
 	private String email;
 	
 	@ManyToMany

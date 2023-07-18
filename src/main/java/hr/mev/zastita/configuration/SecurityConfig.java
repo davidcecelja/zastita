@@ -35,12 +35,17 @@ public class SecurityConfig {
                 .authenticated()
                 .and()
                 .formLogin() 
-               
                 .loginPage("/login")
                 .permitAll()
                 .loginProcessingUrl("/login")
-                .successHandler(myAuthenticationSuccessHandler());
-
+                .successHandler(myAuthenticationSuccessHandler())
+                .and()
+        		.logout()
+        		.logoutUrl("/logout")
+        		.invalidateHttpSession(true)
+        		.deleteCookies("JSESSIONID")
+        		.logoutSuccessUrl("/login?logout");
+        		
         httpSecurity.csrf().ignoringRequestMatchers("/h2-console/**");
         httpSecurity.headers()
                 .frameOptions()

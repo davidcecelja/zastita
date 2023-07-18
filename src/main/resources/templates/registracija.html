@@ -9,7 +9,7 @@
 </head>
 <body>
 <form th:action="@{/pocetna-nastavnik}" method="get">
-    <button class="btn btn-md btn-warning btn-block" type="Submit">Otiđi na stranicu za prijavu</button>
+    <button class="btn btn-md btn-warning btn-block" type="Submit">Povratak na prijavu</button>
 </form>
 <div class="container">
     <div class="row">
@@ -35,13 +35,12 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-9">
-                        <input type="text" th:field="*{email}" placeholder="Email"
-                               class="form-control"/> <label
-                            th:if="${#fields.hasErrors('email')}" th:errors="*{email}"
-                            class="validation-message"></label>
-                    </div>
-                </div>
+    				<div class="col-sm-9">
+        				<input type="text" th:field="*{email}" placeholder="Email" class="form-control" />
+        					<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message"></label>
+        					<span th:if="${greska != null}" class="error-message" th:text="${greska}"></span> 
+    				</div>
+				</div>
                 <div class="form-group">
                     <div class="col-sm-9">
                         <input type="password" th:field="*{lozinka}"

@@ -5,6 +5,8 @@ import hr.mev.zastita.service.KorisnikService;
 import hr.mev.zastita.service.PredavanjeService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.validation.Valid;
+
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -15,6 +17,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -93,15 +96,24 @@ public class KorisnikController {
     @GetMapping("/registracija")
     public String prikaziFormuRegistracije(Model model) {
         model.addAttribute("korisnik", new Korisnik());
+        model.addAttribute("greska", null); 
         return "registracija";
     }
 
     @PostMapping("/registracija")
-    public String registracijaKorisnika(Korisnik korisnik) {
+    public String registracijaKorisnika(@Valid Korisnik korisnik, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {          
+            return "registracija";
+        }  
+        String email = korisnik.getEmail();
+        if(!email.matches("^.*@(mev\\.hr|student\\.mev\\.hr|admin\\.mev\\.hr)$")) {
+        	model.addAttribute("greska", "Krivo upisan email!");
+        	return "registracija";
+        }
         service.registracijaKorisnika(korisnik);
         return "redirect:/login";
     }
-
+    
     @GetMapping("/login")
     public String prikaziFormuPrijave() {
         return "login";
