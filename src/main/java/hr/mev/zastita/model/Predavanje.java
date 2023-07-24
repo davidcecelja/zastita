@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Future;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name="predavanje")
@@ -26,11 +28,14 @@ public class Predavanje {
 	private String opis_predavanja;
 	
 	@Column
+	@NotNull(message = "Odaberite datum početka predavanja!")
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
 	private LocalDateTime pocetak_predavanja;
 
 	@Column
+	@NotNull(message = "Odaberite datum završetka predavanja!")
 	@DateTimeFormat(pattern="yyyy-MM-dd'T'hh:mm")
+	@Future(message = "Datum završetka predavanja mora biti u budućnosti!")
 	private LocalDateTime zavrsetak_predavanja;
 
 	@Column
@@ -40,12 +45,13 @@ public class Predavanje {
 	private List<Korisnik> prijavljeni_studenti = new ArrayList<>();
 
 	@ManyToOne
+	@JoinColumn(name = "kreirao_korisnik_id")
 	private Korisnik kreirao_korisnik;
 
 	public Predavanje() {
 		super();
 	}
-
+	
 	public Predavanje(long id, String naziv_predavanja, String opis_predavanja, LocalDateTime pocetak_predavanja,
 			LocalDateTime zavrsetak_predavanja, String status_predavanja, List<Korisnik> prijavljeni_studenti,
 			Korisnik kreirao_korisnik) {
@@ -140,7 +146,7 @@ public class Predavanje {
     @PreUpdate
     private void validateDates() {
         if (pocetak_predavanja != null && zavrsetak_predavanja != null && pocetak_predavanja.isAfter(zavrsetak_predavanja)) {
-            throw new IllegalArgumentException("Početak predavanja ne može biti prije završetka predavanja!");
+            throw new IllegalArgumentException("Početak predavanja ne može biti u isto vrijeme ili prije završetka predavanja!");
         }
     }
 }

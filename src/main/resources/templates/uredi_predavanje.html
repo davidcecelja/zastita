@@ -8,38 +8,96 @@
 <body>
     <div class="container">
         <h1>Uredi predavanje</h1>
-        <form th:action="@{/uredi_predavanje}" th:object="${predavanje}" method="post">
+        <form th:action="@{/uredi_predavanje}" th:object="${predavanje}" method="post" onsubmit="return validacijaNaziv(), validacijaOpis(), validacijaPocetak(), validacijaZavrsetak(), validacijaStatus(), validacijaDatumPredavanja()">
             <input type="hidden" th:field="*{id}" />
             
             <div class="form-group">
                 <label for="naziv">Naziv predavanja:</label>
                 <input type="text" id="naziv" class="form-control" th:field="*{naziv_predavanja}" />
+                <small id="nazivError" class="text-danger"></small>
             </div>
-            
             <div class="form-group">
                 <label for="opis">Opis predavanja:</label>
                 <textarea id="opis" class="form-control" th:field="*{opis_predavanja}"></textarea>
+                <small id="opisError" class="text-danger"></small>
             </div>
-            
             <div class="form-group">
                 <label for="pocetak">Početak predavanja:</label>
                 <input type="datetime-local" id="pocetak" class="form-control" th:field="*{pocetak_predavanja}" />
+                <small id="pocetakError" class="text-danger"></small>
             </div>
-            
             <div class="form-group">
                 <label for="zavrsetak">Završetak predavanja:</label>
                 <input type="datetime-local" id="zavrsetak" class="form-control" th:field="*{zavrsetak_predavanja}" />
-            </div>         
-            <div class="form-group">
-             	<label for="status">Status predavanja:</label>
-        		<select id="status" th:field="*{status_predavanja}">
-            		<option th:each="status : ${statusi}" th:value="${status}" th:text="${status}" />
-        		</select>
+                <small id="zavrsetakError" class="text-danger"></small>
             </div>
-            
+            <div class="form-group">
+                <label for="status">Status predavanja:</label>
+                <select id="status" class="form-control" th:field="*{status_predavanja}">
+                    <option th:each="status : ${statusi}" th:value="${status}" th:text="${status}" />
+                </select>
+                <small id="statusError" class="text-danger"></small>
+            </div>
             <button type="submit" class="btn btn-primary">Spremi</button>
         </form>
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+		function validacijaNaziv() {
+            var naziv = document.getElementById("naziv").value;            
+            if (naziv.trim() === "") {
+                document.getElementById("nazivError").textContent = "Unesite naziv predavanja.";
+                return false;
+            }        
+            return true;
+        }
+		
+		function validacijaOpis() {           
+            var naziv = document.getElementById("opis").value;          
+            if (naziv.trim() === "") {
+                document.getElementById("opisError").textContent = "Unesite opis predavanja.";
+                return false;
+            }           
+            return true;
+        }
+		
+		function validacijaPocetak() {           
+            var naziv = document.getElementById("pocetak").value;           
+            if (naziv.trim() === "") {
+                document.getElementById("pocetakError").textContent = "Unesite početak predavanja.";
+                return false;
+            }           
+            return true;
+        }
+		
+		function validacijaZavrsetak() {           
+            var naziv = document.getElementById("zavrsetak").value;       
+            if (naziv.trim() === "") {
+                document.getElementById("zavrsetakError").textContent = "Unesite završetak predavanja.";
+                return false;
+            }           
+            return true;
+        }
+		
+		function validacijaStatus() {           
+            var naziv = document.getElementById("status").value;     
+            if (naziv.trim() === "") {
+                document.getElementById("statusError").textContent = "Unesite status predavanja.";
+                return false;
+            }
+            return true;
+        }
+		
+		function validacijaDatumPredavanja() {
+    		var pocetak = new Date(document.getElementById("pocetak").value);
+    		var zavrsetak = new Date(document.getElementById("zavrsetak").value);
+
+    		if (pocetak >= zavrsetak) {
+        		alert("Pocetak predavanja ne može biti nakon završetka predavanja.");
+        		return false;
+    		}
+    		return true;
+		}
+	</script>
 </body>
 </html>

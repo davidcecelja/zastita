@@ -49,8 +49,13 @@ public class KorisnikController {
     }
 
     @GetMapping("/pocetna-nastavnik")
-    public String pocetnaStranicaNastavnik(Model model) {	
-        model.addAttribute("korisnici", service.getAllKorisnik());
+    public String pocetnaStranicaNastavnik(Model model) {
+    	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String emailKorisnika = auth.getName();
+		Korisnik trenutniKorisnik = service.findByEmail(emailKorisnika);
+    	
+		model.addAttribute("korisnik", trenutniKorisnik);
+    	model.addAttribute("predavanja", predavanjeService.getAllPredavanjaKreiraoNastavnik(emailKorisnika));
         return "pocetna_nastavnik";
     }
     

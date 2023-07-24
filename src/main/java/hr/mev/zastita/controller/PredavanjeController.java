@@ -31,7 +31,7 @@ public class PredavanjeController {
 	public String novoPredavanjeGet(Model model) {
 		Predavanje predavanje = new Predavanje();
 		model.addAttribute("predavanje", predavanje);
-		model.addAttribute("statusi", Predavanje.PredavanjeStatus.values()); // dohvacanje iz klase
+		model.addAttribute("statusi", Predavanje.PredavanjeStatus.values()); 
 		return "predavanje";
 	}
 	

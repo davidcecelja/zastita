@@ -4,7 +4,11 @@
     <meta charset="utf-8" />
     <title>Ispit - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
-    <style> body {background-image: url("images/mev.jpg");}</style>
+    <style> 
+    	body {background-image: url("images/mev.jpg");}
+    	.table tbody tr td {color: white;}
+    	.faded-image {opacity: 0.2;}
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -22,25 +26,37 @@
                     <a class="nav-link" th:href="@{/odjava}">Odjava</a>                   
                 </li>            
             </ul>
+        	<div class="ml-auto">
+            	<img src="images/logo.jpg" alt="Logotip" width="60" height="60" class="d-inline-block align-top faded-image">
+        	</div>
         </div>
     </nav>
         <table class="table table-striped">
             <thead class="thead-light">
                 <tr>
-					<th>ID</th>
-                    <th>Ime</th>
-                    <th>Prezime</th>
-                    <th>Email</th>                    
+                    <th>Naziv predavanja</th>
+                    <th>Opis predavanja</th>
+                    <th>Početak predavanja</th>
+                    <th>Završetak predavanja</th>
+                    <th>Status predavanja</th>
+                    <th>Akcije</th>
                 </tr>
-            </thead>  
+            </thead>
             <tbody>
-                <tr th:each="korisnik : ${korisnici}">
-                    <td th:text="${korisnik.id}"></td>
-                    <td th:text="${korisnik.ime}"></td>
-                    <td th:text="${korisnik.prezime}"></td>
-                    <td th:text="${korisnik.email}"></td>                              
+                <tr th:each="predavanje : ${predavanja}">                   
+                    <td th:text="${predavanje.naziv_predavanja}"></td>
+                    <td th:text="${predavanje.opis_predavanja}"></td>
+                    <td th:text="${predavanje.pocetak_predavanja}"></td>
+                    <td th:text="${predavanje.zavrsetak_predavanja}"></td>
+                    <td th:text="${predavanje.status_predavanja}"></td>
+                    <td>
+                        
+                        <a th:href="@{/uredi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-primary">Uredi</a>               
+                        <a th:href="@{/brisi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-danger">Izbriši</a>
+                        <a th:href="@{/prijave/{id}(id=${predavanje.id})}" class="btn btn-success">Prijave</a>
+                    </td>
                 </tr>
-            </tbody>         
+            </tbody>    
         </table> 
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
   		<div class="container p-4"></div> 
