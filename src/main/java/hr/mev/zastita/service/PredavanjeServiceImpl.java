@@ -91,7 +91,4 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	public Iterable<Predavanje> getAllPredavanjaKreiraoNastavnik(String email) {
 		return this.predavanjeRepository.findByKreiraoKorisnikEmail(email);
 	}
-
-	
-
 }

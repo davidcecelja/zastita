@@ -1,6 +1,7 @@
 package hr.mev.zastita.controller;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,14 +30,17 @@ public class PrijavaController {
 	
 	@GetMapping("/prijave/{id}")
 	public String otvoriStanicuSPrijavama(@PathVariable("id") long id, Model model) {
-	model.addAttribute("prijave", service.getPrijavaPoPredavanjeId(id));
-	return "prijave";
-		
+		List<Prijava> prijave = service.getPrijavaPoPredavanjeId(id);
+		model.addAttribute("prijave", service.getPrijavaPoPredavanjeId(id));
+		model.addAttribute("polozeno", prijave.stream().allMatch(Prijava::isPolozeno));
+		return "prijave";		
 	}
 	
 	@GetMapping("/dodaj_prijavu/{id}")
 	public String novaPrijavaGet(@PathVariable("id") Long idPredavanja, Model model) {
-		service.createPrijava(idPredavanja);
+		if(!model.containsAttribute("polozeno")) {
+			service.createPrijava(idPredavanja);
+		}				
 		return "redirect:/pocetna-student";
 	}
 	

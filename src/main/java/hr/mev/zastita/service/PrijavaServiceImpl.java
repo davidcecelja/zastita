@@ -49,6 +49,8 @@ public class PrijavaServiceImpl implements PrijavaService{
 	@Override
 	public void updatePrijava(Prijava prijava) throws ResourceNotFoundException{
 		repository.ocijeniPrijavu(prijava.getOcjena(), prijava.isPolozeno(), prijava.getId());
+		prijava.setPolozeno(true);
+		repository.save(prijava);
 	}
 
 	@Override
@@ -70,7 +72,7 @@ public class PrijavaServiceImpl implements PrijavaService{
 		if(data.isPresent()) {
 			this.repository.delete(data.get());
 		} else {
-			throw new ResourceNotFoundException("Zapis nije pronaÄ‘en.");
+			throw new ResourceNotFoundException("Zapis nije pronađen.");
 		}
 	}
 

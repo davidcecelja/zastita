@@ -56,8 +56,8 @@
         }
 		
 		function validacijaOpis() {           
-            var naziv = document.getElementById("opis").value;          
-            if (naziv.trim() === "") {
+            var opis = document.getElementById("opis").value;          
+            if (opis.trim() === "") {
                 document.getElementById("opisError").textContent = "Unesite opis predavanja.";
                 return false;
             }           
@@ -65,8 +65,8 @@
         }
 		
 		function validacijaPocetak() {           
-            var naziv = document.getElementById("pocetak").value;           
-            if (naziv.trim() === "") {
+            var pocetak = document.getElementById("pocetak").value;           
+            if (pocetak.trim() === "") {
                 document.getElementById("pocetakError").textContent = "Unesite početak predavanja.";
                 return false;
             }           
@@ -74,8 +74,8 @@
         }
 		
 		function validacijaZavrsetak() {           
-            var naziv = document.getElementById("zavrsetak").value;       
-            if (naziv.trim() === "") {
+            var zavrsetak = document.getElementById("zavrsetak").value;       
+            if (zavrsetak.trim() === "") {
                 document.getElementById("zavrsetakError").textContent = "Unesite završetak predavanja.";
                 return false;
             }           
@@ -83,8 +83,8 @@
         }
 		
 		function validacijaStatus() {           
-            var naziv = document.getElementById("status").value;     
-            if (naziv.trim() === "") {
+            var status = document.getElementById("status").value;     
+            if (status.trim() === "") {
                 document.getElementById("statusError").textContent = "Unesite status predavanja.";
                 return false;
             }

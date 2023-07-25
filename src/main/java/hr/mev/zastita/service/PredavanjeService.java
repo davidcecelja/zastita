@@ -17,5 +17,5 @@ public interface PredavanjeService {
 	Iterable<Predavanje> getAllNovaPredavanja();
 
 	Iterable<Predavanje> getAllPredavanjaKreiraoNastavnik(String email);
-		
+
 }

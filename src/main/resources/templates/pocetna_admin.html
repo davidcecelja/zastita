@@ -49,13 +49,15 @@
             		<td th:text="${korisnik.uloga}"></td>
                     <td>
                         <a th:href="@{/uredi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-primary">Uredi</a>
-                        <a th:href="@{/brisi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-danger">Izbriši</a>
+                        <a th:href="@{/brisi_korisnik/{id}(id=${korisnik.id})}" class="btn btn-danger" onclick="return confirm('Jeste li sigurni da želite obrisati korisnika?');">Izbriši</a>
                     </td>
                 </tr>
             </tbody>         
         </table>
     <footer class="text-center text-white fixed-bottom" style="background-color: #3e2723">
-  		<div class="container p-4"></div> 
+  		<div class="container p-4">
+  			<a class="text-white">ZAŠTITA NA RADU</a>
+  		</div> 
   		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
    					 © 2023 Copyright:
     		<a class="text-white" href="https://www.mev.hr/">MEV</a>

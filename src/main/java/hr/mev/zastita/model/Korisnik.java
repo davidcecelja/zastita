@@ -38,6 +38,9 @@ public class Korisnik {
 	@Column
 	private String uloga;
 	
+	@Column
+	private String status;
+	
 	private boolean enabled;
 	
 	public boolean isEnabled() {
@@ -53,12 +56,22 @@ public class Korisnik {
 	    NASTAVNIK
 	}
 
+	public enum StatusKorisnika {
+	    AKTIVAN,
+	    BRISAN
+	}
+	
 	public Korisnik() {
 		super();
 	}
 
-	public Korisnik(long id, String ime, String prezime, String lozinka, String email, List<Predavanje> predavanja,
-			String uloga) {
+	
+
+	public Korisnik(long id, @NotEmpty(message = "Upišite ime!") String ime,
+			@NotEmpty(message = "Upišite prezime!") String prezime,
+			@NotEmpty(message = "Upišite lozinku!") String lozinka,
+			@NotEmpty(message = "Upišite email!") @Email(message = "Nevažeća email adresa") String email,
+			List<Predavanje> predavanja, String uloga, String status, boolean enabled) {
 		super();
 		this.id = id;
 		this.ime = ime;
@@ -67,6 +80,8 @@ public class Korisnik {
 		this.email = email;
 		this.predavanja = predavanja;
 		this.uloga = uloga;
+		this.status = status;
+		this.enabled = enabled;
 	}
 
 	public long getId() {
@@ -124,5 +139,15 @@ public class Korisnik {
 	public void setUloga(String uloga) {
 		this.uloga = uloga;
 	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	
 }
 	

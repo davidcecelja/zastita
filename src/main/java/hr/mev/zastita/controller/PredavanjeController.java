@@ -38,7 +38,7 @@ public class PredavanjeController {
 	@PostMapping("/dodaj_predavanje")
 	public String dodajPredavanjePost(@ModelAttribute("predavanje") Predavanje predavanje) {
 		service.createPredavanje(predavanje);
-		return "redirect:/predavanje"; 
+		return "redirect:/pocetna-nastavnik"; 
 	}
 	
 	@GetMapping("/uredi_predavanje/{id}")
@@ -53,12 +53,12 @@ public class PredavanjeController {
 	@PostMapping("/uredi_predavanje")
 	public String spremiPredavanje(@ModelAttribute("predavanje") Predavanje predavanje) {
 		service.updatePredavanje(predavanje);
-		return "redirect:/predavanje";
+		return "redirect:/pocetna-nastavnik"; // negde se id zgubi
 	}
 	
 	@GetMapping("/brisi_predavanje/{id}")
 	public String brisiPredavanje(@PathVariable(name = "id") long id) {
 		service.deletePredavanje(id);
-		return "redirect:/predavanje";
+		return "redirect:/pocetna-nastavnik";
 	}
 }

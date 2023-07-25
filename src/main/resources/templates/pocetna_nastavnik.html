@@ -2,12 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Ispit - Zaštita na radu</title>
+    <title>MEV - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
     <style> 
     	body {background-image: url("images/mev.jpg");}
     	.table tbody tr td {color: white;}
-    	.faded-image {opacity: 0.2;}
     </style>
 </head>
 <body>
@@ -20,14 +19,14 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">              
                 <li class="nav-item">
-                    <a class="nav-link" th:href="@{/predavanje}">Predavanja</a>
+                    <a class="nav-link" th:href="@{/dodaj_predavanje}">Novo Predavanje</a>
                 </li>                
                  <li class="nav-item">
                     <a class="nav-link" th:href="@{/odjava}">Odjava</a>                   
                 </li>            
             </ul>
         	<div class="ml-auto">
-            	<img src="images/logo.jpg" alt="Logotip" width="60" height="60" class="d-inline-block align-top faded-image">
+            	<img src="images/logo.jpg" alt="Logotip" width="60" height="60" class="d-inline-block align-top">
         	</div>
         </div>
     </nav>
@@ -49,17 +48,20 @@
                     <td th:text="${predavanje.pocetak_predavanja}"></td>
                     <td th:text="${predavanje.zavrsetak_predavanja}"></td>
                     <td th:text="${predavanje.status_predavanja}"></td>
-                    <td>
-                        
-                        <a th:href="@{/uredi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-primary">Uredi</a>               
-                        <a th:href="@{/brisi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-danger">Izbriši</a>
+                    <td>                       
+                        <a th:if="${predavanje.status_predavanja == 'NOVO'}" 
+                        th:href="@{/uredi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-primary">Uredi</a>               
+                        <a th:if="${predavanje.status_predavanja == 'NOVO'}"
+                        th:href="@{/brisi_predavanje/{id}(id=${predavanje.id})}" class="btn btn-danger" onclick="return confirm('Jeste li sigurni da želite obrisati predavanje?');">Izbriši</a>
                         <a th:href="@{/prijave/{id}(id=${predavanje.id})}" class="btn btn-success">Prijave</a>
                     </td>
                 </tr>
             </tbody>    
         </table> 
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
-  		<div class="container p-4"></div> 
+  		<div class="container p-4">
+  			<a class="text-white">ZAŠTITA NA RADU</a>
+  		</div> 
   		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
    					 © 2023 Copyright:
     		<a class="text-white" href="https://mdbootstrap.com/">MEV</a>

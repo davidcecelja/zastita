@@ -54,18 +54,20 @@ public class KorisnikServiceImpl implements KorisnikService{
 	}
 
 	@Override
-	public void deleteKorisnik(long id) {
-		Optional<Korisnik> data = this.repository.findById(id);
-		if(data.isPresent()) {
-			this.repository.delete(data.get());
-		} else {
-			throw new ResourceNotFoundException("Zapis nije pronađen.");
-		}
-	}
+    public void deleteKorisnik(long id) {
+        Optional<Korisnik> korisnikDB = repository.findById(id);
+        if (korisnikDB.isPresent()) {
+            Korisnik korisnik = korisnikDB.get();
+            korisnik.setStatus("BRISAN");
+            repository.save(korisnik);
+        } else {
+            throw new ResourceNotFoundException("Korisnik nije pronađen.");
+        }
+    }
 
 	@Override
 	public Iterable<Korisnik> getAllKorisnik() {
-		return this.repository.findAll();
+		return this.repository.fetchUsers("AKTIVAN");
 	}
 
 	@Override
@@ -99,6 +101,7 @@ public class KorisnikServiceImpl implements KorisnikService{
             throw new IllegalStateException("Nepoznata uloga korisnika");
         }
 		korisnik.setUloga(uloga);
+		korisnik.setStatus("AKTIVAN");
 	    repository.save(korisnik);
 	}
 

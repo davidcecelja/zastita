@@ -19,5 +19,5 @@ public interface KorisnikService {
 	void registracijaKorisnika(Korisnik korisnik);
 
 	void odjavaKorisnika();
-
+		
 }

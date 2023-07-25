@@ -15,5 +15,5 @@ public interface PredavanjeRepository extends JpaRepository<Predavanje, Long>{
 	
 	@Query("SELECT p FROM Predavanje p WHERE p.kreirao_korisnik.email = :email")
 	Iterable<Predavanje> findByKreiraoKorisnikEmail(@Param("email") String email);
-	
+
 }

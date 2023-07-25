@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="ocjena">Ocjena:</label>
-                <input type="number" th:field="*{ocjena}" class="form-control" id="ocjena" />
+                <input type="number" th:field="*{ocjena}" class="form-control" id="ocjena" min="2" max="5"/>
             </div>
             <div class="form-check">
                 <input type="checkbox" th:field="*{polozeno}" class="form-check-input" id="polozeno" />
