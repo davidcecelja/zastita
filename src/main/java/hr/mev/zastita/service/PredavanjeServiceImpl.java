@@ -72,6 +72,7 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id);
 		if(productDB.isPresent()) {
 			this.predavanjeRepository.delete(productDB.get());
+			this.predavanjeRepository.fetchPredavanje("ZAVRSENO");
 		} else {
 			throw new ResourceNotFoundException("Zapis nije pronađen.");
 		}

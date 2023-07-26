@@ -46,6 +46,7 @@ public class Predavanje {
 
 	@ManyToOne
 	@JoinColumn(name = "kreirao_korisnik_id")
+	@NotNull
 	private Korisnik kreirao_korisnik;
 
 	public Predavanje() {

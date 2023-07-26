@@ -34,10 +34,10 @@
             <div class="form-group">
                 <label for="status">Status predavanja:</label>
                 <select id="status" class="form-control" th:field="*{status_predavanja}">
-                    <option th:each="status : ${statusi}" th:value="${status}" th:text="${status}" />
+                    <option value="NOVO" selected>NOVO</option>
                 </select>
                 <small id="statusError" class="text-danger"></small>
-            </div>
+            </div>            
             <button type="submit" class="btn btn-primary">Spremi</button>
         </form>
     </div>

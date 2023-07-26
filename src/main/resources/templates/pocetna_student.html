@@ -2,17 +2,33 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Ispit - Zaštita na radu</title>
+    <title>MEV - Zaštita na radu</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <style> 
+    	body {background-image: url("images/mev.jpg");}
+    	.table tbody tr td {color: white;}
+    </style>
 </head>
 <body>
-    <div class="container">
-    	<a th:href="@{/odjava}" class="btn btn-info">Odjava</a>
-        <div class="text-center">
-            <h1>Ispit - Zaštita na radu</h1>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Student</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">                                            
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/odjava}">Odjava</a>                   
+                </li>            
+            </ul>
+        	<div class="ml-auto">
+            	<img src="images/logo.jpg" alt="Logotip" width="60" height="60" class="d-inline-block align-top">
+        	</div>
         </div>
-        <table class="table">
-            <thead class="thead-dark">
+    </nav>
+        <table class="table table-striped">
+            <thead class="thead-light">
                 <tr>
                     <th>ID</th>
                     <th>Naziv predavanja</th>
@@ -31,20 +47,26 @@
                     <td th:text="${predavanje.pocetak_predavanja}"></td>
                     <td th:text="${predavanje.zavrsetak_predavanja}"></td>
                     <td th:text="${predavanje.status_predavanja}"></td>  
-                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVI ISPIT</a> </td>
-                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> <a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI ISPIT</a> </td>                      
+                   	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> 
+                   		<a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVI ISPIT</a>
+                   		<a th:href = "@{/potvrda}" class="btn btn-success">POTVRDA</a>
+                   	 </td>
+                   	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> 
+                   		<a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI ISPIT</a> 
+                   	</td>                      
                 </tr>
             </tbody>
         </table>
-        <a th:href = "@{/potvrda}" class="btn btn-success">POTVRDA</a>
-    </div>
     <footer class="text-center text-white fixed-bottom" style="background-color: #21081a;">
-  		<div class="container p-4"></div> 
+  		<div class="container p-4">
+  			<a class="text-white">ZAŠTITA NA RADU</a>
+  		</div> 
   		<div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
    					 © 2023 Copyright:
     		<a class="text-white" href="https://mdbootstrap.com/">MEV</a>
   		</div>
-	</footer>  
+	</footer>       
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>
  

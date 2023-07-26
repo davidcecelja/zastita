@@ -55,7 +55,6 @@ public class PrijavaController {
 	@PostMapping("/uredi_prijava")
 	public String spremiPrijavu(@ModelAttribute("prijava") Prijava prijava) {
 		service.updatePrijava(prijava);
-		System.out.println("PRIJAVA " + prijava.getPredavanje());
 		return "redirect:/prijave/" + prijava.getPredavanje().getId();
 	}
 	

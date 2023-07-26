@@ -53,7 +53,7 @@ public class PredavanjeController {
 	@PostMapping("/uredi_predavanje")
 	public String spremiPredavanje(@ModelAttribute("predavanje") Predavanje predavanje) {
 		service.updatePredavanje(predavanje);
-		return "redirect:/pocetna-nastavnik"; // negde se id zgubi
+		return "redirect:/pocetna-nastavnik"; 
 	}
 	
 	@GetMapping("/brisi_predavanje/{id}")
