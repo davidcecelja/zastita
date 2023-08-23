@@ -14,6 +14,7 @@ import hr.mev.zastita.exceptions.ResourceNotFoundException;
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.model.Predavanje;
 import hr.mev.zastita.model.Prijava;
+import hr.mev.zastita.repository.PredavanjeRepository;
 import hr.mev.zastita.repository.PrijavaRepository;
 
 @Service
@@ -22,6 +23,9 @@ public class PrijavaServiceImpl implements PrijavaService{
 	
 	@Autowired
 	private PrijavaRepository repository;
+	
+	@Autowired
+	private PredavanjeRepository predavanjeRepository;
 	
 	@Autowired
 	private KorisnikService korisnikService;
@@ -49,8 +53,26 @@ public class PrijavaServiceImpl implements PrijavaService{
 	@Override
 	public void updatePrijava(Prijava prijava) throws ResourceNotFoundException{
 		repository.ocijeniPrijavu(prijava.getOcjena(), prijava.isPolozeno(), prijava.getId());
+		
+		if (prijava.getOcjena() == 1) {
+			prijava.setPolozeno(false);
+		} else {
+			prijava.setPolozeno(true);
+		}
+		
 		prijava.setPolozeno(true);
 		repository.save(prijava);
+		
+		long idPredavanje = prijava.getPredavanje().getId();
+		
+		int ocijenjeni = repository.brojOcijenjenihPrijava(idPredavanje);
+		int neocijenjeni = repository.brojNeocijenjenihPrijava(idPredavanje);
+		
+		if(ocijenjeni == neocijenjeni){
+			Predavanje predavanje = predavanjeService.getPredavanje(idPredavanje);
+			predavanje.setStatus_predavanja("ZAVRSENO");
+			predavanjeRepository.save(predavanje);
+		}
 	}
 
 	@Override

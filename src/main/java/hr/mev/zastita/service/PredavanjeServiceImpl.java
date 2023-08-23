@@ -71,8 +71,9 @@ public class PredavanjeServiceImpl implements PredavanjeService{
 	public void deletePredavanje(long id) {
 		Optional<Predavanje> productDB = this.predavanjeRepository.findById(id);
 		if(productDB.isPresent()) {
-			this.predavanjeRepository.delete(productDB.get());
-			this.predavanjeRepository.fetchPredavanje("ZAVRSENO");
+			Predavanje predavanjeUpdate = productDB.get();
+			predavanjeUpdate.setStatus_predavanja("ZAVRSENO");
+			predavanjeRepository.save(predavanjeUpdate);
 		} else {
 			throw new ResourceNotFoundException("Zapis nije pronađen.");
 		}

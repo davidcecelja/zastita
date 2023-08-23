@@ -10,6 +10,7 @@
         <h1>Uredi predavanje</h1>
         <form th:action="@{/uredi_predavanje}" th:object="${predavanje}" method="post" onsubmit="return validacijaNaziv(), validacijaOpis(), validacijaPocetak(), validacijaZavrsetak(), validacijaStatus(), validacijaDatumPredavanja()">
             <input type="hidden" th:field="*{id}" />
+            <input type="hidden" th:field="*{kreirao_korisnik.id}" />
             
             <div class="form-group">
                 <label for="naziv">Naziv predavanja:</label>
