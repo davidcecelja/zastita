@@ -65,8 +65,6 @@ public class Korisnik {
 		super();
 	}
 
-	
-
 	public Korisnik(long id, @NotEmpty(message = "Upišite ime!") String ime,
 			@NotEmpty(message = "Upišite prezime!") String prezime,
 			@NotEmpty(message = "Upišite lozinku!") String lozinka,
@@ -149,3 +147,4 @@ public class Korisnik {
 	}	
 }
 	
+
