@@ -51,17 +51,17 @@ public class PrijavaServiceImpl implements PrijavaService{
 	}
 
 	@Override
-	public void updatePrijava(Prijava prijava) throws ResourceNotFoundException{
-		repository.ocijeniPrijavu(prijava.getOcjena(), prijava.isPolozeno(), prijava.getId());
-		
-		if (prijava.getOcjena() == 1) {
-			prijava.setPolozeno(false);
-		} else {
+	public void updatePrijava(Prijava prijava){
+		repository.ocijeniPrijavu(prijava.getOcjena(), true, prijava.getId());
+		System.out.println("Entering updatePrijava method");
+		/*if (prijava.getOcjena() >= 2 && prijava.getOcjena() <= 5) {
 			prijava.setPolozeno(true);
-		}
-		
-		prijava.setPolozeno(true);
+		} else {
+			prijava.setPolozeno(false);
+		}*/
+		System.out.println("Before repository.save");
 		repository.save(prijava);
+		System.out.println("After repository.save");
 		
 		long idPredavanje = prijava.getPredavanje().getId();
 		
@@ -73,6 +73,7 @@ public class PrijavaServiceImpl implements PrijavaService{
 			predavanje.setStatus_predavanja("ZAVRSENO");
 			predavanjeRepository.save(predavanje);
 		}
+		System.out.println("Exiting updatePrijava method");
 	}
 
 	@Override

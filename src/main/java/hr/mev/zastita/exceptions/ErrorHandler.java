@@ -10,13 +10,13 @@ public class ErrorHandler {
 
     @ExceptionHandler(ResourceNotFoundException.class)
     public String handleResourceNotFoundException(ResourceNotFoundException e, Model model) {
-        model.addAttribute("error", "Traženi resurs nije pronađen.");
+        model.addAttribute("resource_error", "Traženi resurs nije pronađen.");
         return "error";
     }
 
     @ExceptionHandler(ConstraintViolationException.class)
     public String handleConstraintViolationException(ConstraintViolationException e, Model model) {
-        model.addAttribute("error", "Korisnik ima reference u aplikaciji i ne može se izbrisati. Molimo pobrišite sva predavanja koja je kreirao korisnik ili odjavite sve ispite koje je korisnik prijavio!");
+        model.addAttribute("constraint_error", "Korisnik ima reference u aplikaciji i ne može se izbrisati. Molimo pobrišite sva predavanja koja je kreirao korisnik ili odjavite sve ispite koje je korisnik prijavio!");
         return "error";
     }
 

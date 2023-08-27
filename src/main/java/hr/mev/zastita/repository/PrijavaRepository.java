@@ -18,8 +18,8 @@ public interface PrijavaRepository extends JpaRepository<Prijava, Long>{
 	List<Prijava> findByPredavanje_id(long predavanjeId);
 	
 	@Modifying
-	@Query("UPDATE Prijava p SET p.ocjena = :ocjena, p.polozeno = :polozen WHERE id = :prijavaId")
-	void ocijeniPrijavu(@Param("ocjena")int ocjena, @Param("polozen") boolean polozen,@Param("prijavaId") long prijavaId);
+	@Query("UPDATE Prijava p SET p.ocjena = :ocjena, p.polozeno = :polozeno WHERE id = :prijavaId")
+	void ocijeniPrijavu(@Param("ocjena") int ocjena, @Param("polozeno") boolean polozeno, @Param("prijavaId") long prijavaId);
 	
 	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.polozeno IS NOT NULL AND p.predavanje = :id_predavanje")
 	int brojOcijenjenihPrijava(@Param("id_predavanje") long predavanje_id );
@@ -27,3 +27,5 @@ public interface PrijavaRepository extends JpaRepository<Prijava, Long>{
 	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.polozeno IS NULL AND p.predavanje = :id_predavanje")
 	int brojNeocijenjenihPrijava(@Param("id_predavanje") long predavanje_id);
 }
+
+
