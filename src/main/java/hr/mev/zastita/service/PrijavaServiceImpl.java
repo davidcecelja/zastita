@@ -53,15 +53,13 @@ public class PrijavaServiceImpl implements PrijavaService{
 	@Override
 	public void updatePrijava(Prijava prijava){
 		repository.ocijeniPrijavu(prijava.getOcjena(), true, prijava.getId());
-		System.out.println("Entering updatePrijava method");
-		/*if (prijava.getOcjena() >= 2 && prijava.getOcjena() <= 5) {
+		
+		if (prijava.getOcjena() >= 2 && prijava.getOcjena() <= 5) {
 			prijava.setPolozeno(true);
 		} else {
 			prijava.setPolozeno(false);
-		}*/
-		System.out.println("Before repository.save");
+		}		
 		repository.save(prijava);
-		System.out.println("After repository.save");
 		
 		long idPredavanje = prijava.getPredavanje().getId();
 		
@@ -73,7 +71,6 @@ public class PrijavaServiceImpl implements PrijavaService{
 			predavanje.setStatus_predavanja("ZAVRSENO");
 			predavanjeRepository.save(predavanje);
 		}
-		System.out.println("Exiting updatePrijava method");
 	}
 
 	@Override
