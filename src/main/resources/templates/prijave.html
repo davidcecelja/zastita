@@ -31,11 +31,9 @@
                     <td th:text="${prijava.datumPrijave}"></td>
                     <td th:text="${prijava.ocjena}"></td>
                     <td th:text="${prijava.polozeno} ? 'Da' : 'Ne'"></td>
-                    <td>
+                    <td th:if="${prijava.ocjena == null || prijava.ocjena == 0}">
                         <a th:href="@{/uredi_prijava/{id}(id=${prijava.id})}" class="btn btn-danger">Ocijeni</a>
                     </td>
-                    <!--/*  ako ima ocjenu onda hidden gumb */-->
-                   
                 </tr>
             </tbody>
         </table>

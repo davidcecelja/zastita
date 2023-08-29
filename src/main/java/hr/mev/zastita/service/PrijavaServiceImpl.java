@@ -51,22 +51,23 @@ public class PrijavaServiceImpl implements PrijavaService{
 	}
 
 	@Override
-	public void updatePrijava(Prijava prijava){
-		repository.ocijeniPrijavu(prijava.getOcjena(), true, prijava.getId());
+	public void updatePrijava(Prijava prijava) throws ResourceNotFoundException{
+		repository.ocijeniPrijavu(prijava.getOcjena(), prijava.isPolozeno(), prijava.getId());
 		
-		if (prijava.getOcjena() >= 2 && prijava.getOcjena() <= 5) {
-			prijava.setPolozeno(true);
-		} else {
+		if (prijava.getOcjena() == 1) {
 			prijava.setPolozeno(false);
-		}		
+		} else {
+			prijava.setPolozeno(true);
+		}
+
 		repository.save(prijava);
 		
 		long idPredavanje = prijava.getPredavanje().getId();
 		
 		int ocijenjeni = repository.brojOcijenjenihPrijava(idPredavanje);
-		int neocijenjeni = repository.brojNeocijenjenihPrijava(idPredavanje);
+		int prijavljeni = repository.brojPrijavljenihStudenata(idPredavanje);
 		
-		if(ocijenjeni == neocijenjeni){
+		if(ocijenjeni == prijavljeni){
 			Predavanje predavanje = predavanjeService.getPredavanje(idPredavanje);
 			predavanje.setStatus_predavanja("ZAVRSENO");
 			predavanjeRepository.save(predavanje);
@@ -120,5 +121,10 @@ public class PrijavaServiceImpl implements PrijavaService{
 	@Override
 	public List<Prijava> getPrijavaPoPredavanjeId(long predavanjeId) {
 		return repository.findByPredavanje_id(predavanjeId);
+	}
+	
+	@Override
+	public Prijava getPrijavaPoPredavanjeIdAndStudentId(long predavanjeId, long studentId) {
+		return (repository.findByPredavanje_idAndStudent_id(predavanjeId, studentId));
 	}
 }

@@ -41,6 +41,8 @@
             </thead>
             <tbody>
                 <tr th:each="predavanje : ${predavanja}">
+                	
+                	<div th:with="prijava=${prijavaService.getPrijavaPoPredavanjeIdAndStudentId(predavanje.id, korisnik.id)}">
                     <td th:text="${predavanje.id}"></td>
                     <td th:text="${predavanje.naziv_predavanja}"></td>
                     <td th:text="${predavanje.opis_predavanja}"></td>
@@ -49,11 +51,13 @@
                     <td th:text="${predavanje.status_predavanja}"></td>  
                    	<td th:if="${!#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> 
                    		<a th:href = "@{/dodaj_prijavu/{id}(id=${predavanje.id})}" class="btn btn-primary" >PRIJAVI ISPIT</a>
-                   		<a th:href = "@{/potvrda}" class="btn btn-success">POTVRDA</a>
                    	 </td>
                    	<td th:if="${#lists.contains(predavanje.prijavljeni_studenti, korisnik)}"> 
-                   		<a th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI ISPIT</a> 
-                   	</td>                      
+                   		<a th:if="${prijava.ocjena == 0}" th:href = "@{/odjavi_prijavu/{id}(id=${predavanje.id})}" class="btn btn-danger" >ODJAVI ISPIT</a>
+                   		<a th:if="${prijava.ocjena != 0}" th:href = "@{/potvrda}" class="btn btn-success">POTVRDA</a> 
+                   	</td> 
+                   	</div>
+                                    
                 </tr>
             </tbody>
         </table>
@@ -65,7 +69,11 @@
    					 © 2023 Copyright:
     		<a class="text-white" href="https://mdbootstrap.com/">MEV</a>
   		</div>
-	</footer>       
+	</footer>    
+	<script
+			  src="https://code.jquery.com/jquery-3.7.0.slim.min.js"
+			  integrity="sha256-tG5mcZUtJsZvyKAxYLVXrmjKBVLd6VpVccqz/r4ypFE="
+			  crossorigin="anonymous"></script>  
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
 </body>
 </html>

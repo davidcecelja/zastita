@@ -3,6 +3,7 @@ package hr.mev.zastita.controller;
 import hr.mev.zastita.model.Korisnik;
 import hr.mev.zastita.service.KorisnikService;
 import hr.mev.zastita.service.PredavanjeService;
+import hr.mev.zastita.service.PrijavaService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -37,6 +38,9 @@ public class KorisnikController {
     @Autowired
     private PredavanjeService predavanjeService;
     
+    @Autowired
+    private PrijavaService prijavaService;
+    
     @GetMapping("/pocetna-student")
     public String pocetnaStranicaStudent(Model model) {
     	Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -44,7 +48,10 @@ public class KorisnikController {
 		Korisnik trenutniKorisnik = service.findByEmail(emailKorisnika);
 		
 		model.addAttribute("korisnik", trenutniKorisnik);
-        model.addAttribute("predavanja", predavanjeService.getAllNovaPredavanja());
+        model.addAttribute("predavanja", predavanjeService.getAllPredavanja());
+        model.addAttribute("prijave", prijavaService.getAllPrijave());
+        model.addAttribute("prijavaService", prijavaService);
+        
         return "pocetna_student";
     }
 

@@ -19,4 +19,6 @@ public interface PrijavaService {
 	Iterable<Prijava> getAllPrijave(); 
 
 	void odjaviPrijavu(long id);
+
+	Prijava getPrijavaPoPredavanjeIdAndStudentId(long predavanjeId, long studentId);
 }

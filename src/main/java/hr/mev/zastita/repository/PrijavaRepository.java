@@ -21,11 +21,15 @@ public interface PrijavaRepository extends JpaRepository<Prijava, Long>{
 	@Query("UPDATE Prijava p SET p.ocjena = :ocjena, p.polozeno = :polozen WHERE id = :prijavaId")
 	void ocijeniPrijavu(@Param("ocjena")int ocjena, @Param("polozen") boolean polozen,@Param("prijavaId") long prijavaId);
 	
-	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.polozeno = 0 AND p.predavanje.id = :id_predavanje")
+	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.polozeno = 1 AND p.predavanje.id = :id_predavanje")
 	int brojOcijenjenihPrijava(@Param("id_predavanje") long id_predavanje );
 	
-	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.polozeno != 0 AND p.predavanje.id = :id_predavanje")
+	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.polozeno = 0 AND p.predavanje.id = :id_predavanje")
 	int brojNeocijenjenihPrijava(@Param("id_predavanje") long id_predavanje);
+	
+	@Query("SELECT COUNT(p) FROM Prijava p WHERE p.predavanje.id = :id_predavanje")
+	int brojPrijavljenihStudenata(@Param("id_predavanje") long id_predavanje);
 }
+
 
 
